@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "z9J0pvMEa3SmISHVVDnKVHWsbCXLOuuPWZ9cMuYejNulzF0fmVBeqsWSqOOuhfLQ1pcwz0bD8kKe6DOE5jTluA==",
+  "success": true,
+  "projectFilePath": "E:\\Development\\c#\\LightMotor\\LightMotor\\LightMotor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kaise\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.22\\microsoft.netcore.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\kaise\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.22\\microsoft.windowsdesktop.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\kaise\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.22\\microsoft.aspnetcore.app.ref.6.0.22.nupkg.sha512"
+  ],
+  "logs": []
+}
