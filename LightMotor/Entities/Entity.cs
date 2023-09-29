@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace LightMotor.Entity;
+namespace LightMotor.Entities;
 
 public abstract class Entity
 {

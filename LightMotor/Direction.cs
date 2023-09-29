@@ -1,4 +1,6 @@
-namespace LightMotor.Entity;
+using LightMotor.Entities;
+
+namespace LightMotor;
 
 /// <summary>
 /// Abstract class for the direction singleton classes
@@ -11,6 +13,45 @@ public abstract class Direction
     /// The rotation the <seealso cref="Entity"/> should have
     /// </summary>
     public int Rotation => rotation;
+
+    /// <summary>
+    /// Calculates the next direction for the current direction
+    /// </summary>
+    /// <param name="current">The current direction</param>
+    /// <param name="direction">The turn we about to take</param>
+    /// <returns>The calculated direction</returns>
+    public static Direction GetTurnFor(Direction current, TurnDirection direction)
+    {
+        if (direction == NoTurn.Get())
+            return current;
+
+        if (current == NorthDirection.Get())
+        {
+            if(direction == TurnLeft.Get())
+                return WestDirection.Get();
+            return EastDirection.Get();
+        }
+
+        if (current == WestDirection.Get())
+        {
+            if(direction == TurnLeft.Get())
+                return SouthDirection.Get();
+            return NorthDirection.Get();
+        }
+
+        if (current == SouthDirection.Get())
+        {
+            if (direction == TurnLeft.Get())
+                return EastDirection.Get();
+            return WestDirection.Get();
+        }
+
+        // EastDirection
+        if(direction == TurnLeft.Get())
+            return NorthDirection.Get();
+        return SouthDirection.Get();
+            
+    }
 }
 
 /// <summary>

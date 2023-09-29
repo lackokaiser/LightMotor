@@ -1,4 +1,4 @@
-namespace LightMotor.Entity;
+namespace LightMotor;
 
 /// <summary>
 /// A position representing a 2D coordinate

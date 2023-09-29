@@ -36,6 +36,11 @@ public class Game
         field = new Field(n);
     }
     
+    /// <summary>
+    /// Handles input from the view
+    /// </summary>
+    /// <param name="input">The input type that was received</param>
+    /// <param name="player">The variant of the input <br/>0 for player-1 <br/>1 for player-2</param>
     public void AcceptInput(InputType input, int player)
     {
         field?.AcceptInput(input, player);
@@ -81,8 +86,11 @@ public class Game
                 
                 if(Paused)
                     continue;
-                
-                field.Update();
+
+                if (field.Update())
+                {
+                    OnStateChangedInvoke(this, new StateChangeEventArgs(field.GameStatus));
+                }
                 OnUpdateInvoke(this);
 
                 

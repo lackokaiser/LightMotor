@@ -1,4 +1,4 @@
-namespace LightMotor.Game;
+namespace LightMotor;
 
 /// <summary>
 /// An abstract status object to hold the status singletons together
