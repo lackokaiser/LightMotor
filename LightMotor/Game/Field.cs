@@ -1,5 +1,6 @@
 using System.Text;
 using LightMotor.Entities;
+using LightMotor = LightMotor.Entities.LightMotor;
 
 namespace LightMotor.Game;
 
@@ -16,12 +17,30 @@ public class Field
     {
         this.size = size;
         GameStatus = PlayStatus.Get();
-        
+
+        Entities.LightMotor playerOne = new (new Position(size / 2, size / 2), WestDirection.Get()), 
+            playerTwo = new (new Position(size / 2 + 1, size / 2), EastDirection.Get());
         // create two motor and place them on the field
+        playerHandlers = new IInputHandler[] { playerOne, playerTwo };
     }
 
     public Field(string data)
     {
+        string[] split = data.Split('\n');
+
+        string[] main = split[0].Split();
+
+        size = int.Parse(main[0]);
+        byte status = byte.Parse(main[1]);
+        
+        if(status == 0)
+            GameStatus = PlayStatus.Get();
+        else if (status == 1)
+            GameStatus = FirstPlayerWinStatus.Get();
+        else if(status == 2)
+            GameStatus = SecondPlayerWinStatus.Get();
+        
+        
     }
 
     /// <summary>
