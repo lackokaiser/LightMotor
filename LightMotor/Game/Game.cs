@@ -1,9 +1,10 @@
+using LightMotor.Entities;
 using LightMotor.Event;
 using LightMotor.Exception;
 
 namespace LightMotor.Game;
 
-public delegate void OnGameUpdate(object source, EventArgs e);
+public delegate void OnGameUpdate(object source, OnUpdateEventArgs e);
 public delegate void OnGameStateChanged(object obj, StateChangeEventArgs e);
 
 /// <summary>
@@ -34,6 +35,8 @@ public class Game
         
         _token = new CancellationTokenSource();
         field = new Field(n);
+        var ents = field.Entities;
+        OnUpdateInvoke(this, new OnUpdateEventArgs((Entities.LightMotor)ents[0], (Entities.LightMotor)ents[1], null, null));
     }
     
     /// <summary>
@@ -50,9 +53,10 @@ public class Game
     /// Invokes the <see cref="OnGameUpdate"/> event
     /// </summary>
     /// <param name="source">The event's source</param>
-    private void OnUpdateInvoke(object source)
+    /// <param name="e">Args containing the newly added or updated elements</param>
+    private void OnUpdateInvoke(object source, OnUpdateEventArgs e)
     {
-        OnUpdate?.Invoke(source, EventArgs.Empty);
+        OnUpdate?.Invoke(source, e);
     }
 
     /// <summary>
@@ -87,11 +91,14 @@ public class Game
                 if(Paused)
                     continue;
 
-                if (field.Update())
-                {
+                field.Update();
+                
+                if(field.CheckStatus())
                     OnStateChangedInvoke(this, new StateChangeEventArgs(field.GameStatus));
-                }
-                OnUpdateInvoke(this);
+                
+                var ent = field.Entities;
+                OnUpdateInvoke(this, new OnUpdateEventArgs((Entities.LightMotor)ent[0], (Entities.LightMotor)ent[1],
+                    (LightLine?)ent[^1], (LightLine?)field.Entities[^2]));
 
                 
             }

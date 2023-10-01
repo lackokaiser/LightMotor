@@ -36,36 +36,20 @@ public struct Position
     }
 
     /// <summary>
-    /// Clamps the position into a box that was given
+    /// Determines if this position is out of scope or not
     /// </summary>
-    /// <param name="minX">The minimum x coordinate</param>
-    /// <param name="minY">The minimum y coordinate</param>
-    /// <param name="maxX">The maximum x coordinate</param>
-    /// <param name="maxY">The maximum y coordinate</param>
-    /// <returns>True if anything was done to x or y</returns>
+    /// <param name="minX">The minimum x</param>
+    /// <param name="minY">The minimum y</param>
+    /// <param name="maxX">The maximum x</param>
+    /// <param name="maxY">The maximum y</param>
+    /// <returns>True if out of bounds</returns>
     /// <exception cref="ArgumentException">If minimum values are greater than maximum values</exception>
-    public bool Clamp(int minX, int minY, int maxX, int maxY)
+    public bool IsOutOfBounds(int minX, int minY, int maxX, int maxY)
     {
         if (minY > maxY || minX > maxX)
             throw new ArgumentException("Minimum values can't be greater than maximum values");
 
-        int xTmp = _x;
-        int yTmp = _y;
-        _x = Math.Clamp(_x, minX, maxX);
-        _y = Math.Clamp(_y, minY, maxY);
-
-        return _x != xTmp || _y != yTmp;
-    }
-
-    /// <summary>
-    /// Sets the position
-    /// </summary>
-    /// <param name="x">The new x position</param>
-    /// <param name="y">The new y position</param>
-    public void Set(int x, int y)
-    {
-        _x = x;
-        _y = y;
+        return _x < minX || _x > maxX || _y < minY || _y > maxY;
     }
     
     public static bool operator ==(Position a, Position b)
