@@ -97,7 +97,12 @@ public class Field
 
         if (oneOut && twoOut) // draw
         {
-            
+            nextStatus = DrawStatus.Get();
+            if (GameStatus != nextStatus)
+            {
+                GameStatus = nextStatus;
+                return true;
+            }
         }
         else if (oneOut) // player two win
         {
@@ -120,7 +125,12 @@ public class Field
         
         if (playerOne.IsTouching(playerTwo)) // draw
         {
-            
+            nextStatus = DrawStatus.Get();
+            if (GameStatus != nextStatus)
+            {
+                GameStatus = nextStatus;
+                return true;
+            }
         }
 
         for (int i = 2; i < entities.Count; i++)

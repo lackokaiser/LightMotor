@@ -54,3 +54,19 @@ public class SecondPlayerWinStatus : GameStatus
         return instance;
     }
 }
+
+/// <summary>
+/// Singleton to represent the draw case
+/// </summary>
+public class DrawStatus : GameStatus
+{
+    private static DrawStatus? instance;
+
+    private DrawStatus(){}
+
+    public static DrawStatus Get()
+    {
+        instance ??= new DrawStatus();
+        return instance;
+    }
+}
