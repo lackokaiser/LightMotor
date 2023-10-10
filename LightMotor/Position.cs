@@ -61,8 +61,8 @@ public struct Position
     {
         return !(a == b);
     }
-    
-    public bool Equals(Position other)
+
+    private bool Equals(Position other)
     {
         return _x == other._x && _y == other._y;
     }

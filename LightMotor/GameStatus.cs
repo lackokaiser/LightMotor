@@ -11,14 +11,14 @@ public abstract class GameStatus
 /// </summary>
 public class PlayStatus : GameStatus
 {
-    private static PlayStatus? instance;
+    private static PlayStatus? _instance;
 
     private PlayStatus(){}
 
     public static PlayStatus Get()
     {
-        instance ??= new PlayStatus();
-        return instance;
+        _instance ??= new PlayStatus();
+        return _instance;
     }
 }
 
@@ -28,14 +28,14 @@ public class PlayStatus : GameStatus
 /// </summary>
 public class FirstPlayerWinStatus : GameStatus
 {
-    private static FirstPlayerWinStatus? instance;
+    private static FirstPlayerWinStatus? _instance;
 
     private FirstPlayerWinStatus(){}
 
     public static FirstPlayerWinStatus Get()
     {
-        instance ??= new FirstPlayerWinStatus();
-        return instance;
+        _instance ??= new FirstPlayerWinStatus();
+        return _instance;
     }
 }
 
@@ -44,14 +44,14 @@ public class FirstPlayerWinStatus : GameStatus
 /// </summary>
 public class SecondPlayerWinStatus : GameStatus
 {
-    private static SecondPlayerWinStatus? instance;
+    private static SecondPlayerWinStatus? _instance;
 
     private SecondPlayerWinStatus(){}
 
     public static SecondPlayerWinStatus Get()
     {
-        instance ??= new SecondPlayerWinStatus();
-        return instance;
+        _instance ??= new SecondPlayerWinStatus();
+        return _instance;
     }
 }
 
@@ -60,13 +60,13 @@ public class SecondPlayerWinStatus : GameStatus
 /// </summary>
 public class DrawStatus : GameStatus
 {
-    private static DrawStatus? instance;
+    private static DrawStatus? _instance;
 
     private DrawStatus(){}
 
     public static DrawStatus Get()
     {
-        instance ??= new DrawStatus();
-        return instance;
+        _instance ??= new DrawStatus();
+        return _instance;
     }
 }

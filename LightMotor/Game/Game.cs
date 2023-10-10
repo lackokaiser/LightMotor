@@ -1,21 +1,24 @@
 using LightMotor.Entities;
 using LightMotor.Event;
-using LightMotor.Exception;
+using WinPersistance;
 
 namespace LightMotor.Game;
 
 public delegate void OnGameUpdate(object source, OnUpdateEventArgs e);
 public delegate void OnGameStateChanged(object obj, StateChangeEventArgs e);
 
+public delegate void OnGameInitialized(object obj, GameInitializedEventArgs e);
+
 /// <summary>
 /// This class controls the game's state and updates
 /// <seealso cref="Field"/>
 /// </summary>
-public class Game
+public class Game : PersistanceProvider
 {
     public event OnGameUpdate? OnUpdate;
     public event OnGameStateChanged? OnStateChanged;
-    private Field? field;
+    public event OnGameInitialized? OnGameInitialized;
+    private Field? _field;
     private CancellationTokenSource? _token;
     
     /// <summary>
@@ -34,19 +37,49 @@ public class Game
         Stop();
         
         _token = new CancellationTokenSource();
-        field = new Field(n);
-        var ents = field.Entities;
-        OnUpdateInvoke(this, new OnUpdateEventArgs((Entities.LightMotor)ents[0], (Entities.LightMotor)ents[1], null, null));
+        _field = new Field(n);
+        var entities = _field.Entities;
+        OnGameInitializedInvoke(this, new GameInitializedEventArgs(_field.Size, (Entities.LightMotor)entities[0], (Entities.LightMotor)entities[1], 
+            Array.Empty<Entity>(), PlayStatus.Get()));
+   }
+
+    /// <summary>
+    /// Saves the current game and places it's data into a file
+    /// </summary>
+    /// <param name="file">The destination file</param>
+    /// <exception cref="ApplicationException">If the game is not yet initialized</exception>
+    public void SaveGame(string file)
+    {
+        if (_field == null)
+            throw new ApplicationException("Cannot save an empty game");
+        Write(file, _field);
+    }
+    
+    protected override void Load(string data)
+    {
+        Stop();
+
+        _token = new CancellationTokenSource();
+        _field = new Field(data);
+        
+        var entities = _field.Entities;
+        var lights = new Entity[entities.Count - 2];
+        for (int i = 2; i < entities.Count; i++)
+        {
+            lights[i - 2] = entities[i];
+        }
+        OnGameInitializedInvoke(this, new GameInitializedEventArgs(_field.Size, (Entities.LightMotor)entities[0], (Entities.LightMotor)entities[1], 
+            lights, _field.GameStatus));
     }
     
     /// <summary>
     /// Handles input from the view
     /// </summary>
-    /// <param name="input">The input type that was received</param>
+    /// <param name="direction">The direction that was received</param>
     /// <param name="player">The variant of the input <br/>0 for player-1 <br/>1 for player-2</param>
-    public void AcceptInput(InputType input, int player)
+    public void AcceptInput(Direction direction, int player)
     {
-        field?.AcceptInput(input, player);
+        _field?.AcceptInput(direction, player);
     }
 
     /// <summary>
@@ -68,16 +101,25 @@ public class Game
     {
         OnStateChanged?.Invoke(source, e);
     }
+    /// <summary>
+    /// Invokes the <see cref="OnGameInitialized"/> event
+    /// </summary>
+    /// <param name="source">The event's source</param>
+    /// <param name="e">Args containing the game's started position</param>
+    private void OnGameInitializedInvoke(object source, GameInitializedEventArgs e)
+    {
+        OnGameInitialized?.Invoke(source, e);
+    }
 
     /// <summary>
     /// Starts the execution of the game
-    /// <exception cref="BadInitializationException">If the <see cref="Init"/> function has not yet been called</exception>
+    /// <exception cref="Exception">If the <see cref="Init"/> function has not yet been called</exception>
     /// </summary>
     public async Task Run()
     {
-        if (field == null || _token == null)
+        if (_field == null || _token == null)
         {
-            throw new BadInitializationException("Can't start an empty game!");
+            throw new Exception("Can't start an empty game!");
         }
 
         await Task.Run(() =>
@@ -91,14 +133,14 @@ public class Game
                 if(Paused)
                     continue;
 
-                field.Update();
+                _field.Update();
                 
-                if(field.CheckStatus())
-                    OnStateChangedInvoke(this, new StateChangeEventArgs(field.GameStatus));
+                if(_field.CheckStatus())
+                    OnStateChangedInvoke(this, new StateChangeEventArgs(_field.GameStatus));
                 
-                var ent = field.Entities;
+                var ent = _field.Entities;
                 OnUpdateInvoke(this, new OnUpdateEventArgs((Entities.LightMotor)ent[0], (Entities.LightMotor)ent[1],
-                    (LightLine?)ent[^1], (LightLine?)field.Entities[^2]));
+                    (LightLine?)ent[^1], (LightLine?)_field.Entities[^2]));
 
                 
             }

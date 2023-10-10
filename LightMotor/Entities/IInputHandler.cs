@@ -2,7 +2,7 @@ namespace LightMotor.Entities;
 
 /// <summary>
 /// Interface for input handling on Entities
-/// <seealso cref="Entity"/>
+/// <seealso cref="LightMotor"/>
 /// </summary>
 public interface IInputHandler
 {
@@ -11,5 +11,5 @@ public interface IInputHandler
     /// </summary>
     /// <param name="input">The input itself, can be left or right turn</param>
     /// <seealso cref="InputType"/>
-    void AcceptInput(InputType input);
+    void AcceptInput(InputType? input);
 }

@@ -2,19 +2,24 @@ using LightMotor.Entities;
 
 namespace LightMotor.Event;
 
+/// <summary>
+/// Event arguments for update event
+/// </summary>
 public class OnUpdateEventArgs : EventArgs
 {
-    private Entities.LightMotor playerOne;
-    private Entities.LightMotor playerTwo;
+    public Entities.LightMotor PlayerOne { get; }
 
-    private LightLine? addedLightOne;
-    private LightLine? addedLightTwo;
+    public Entities.LightMotor PlayerTwo { get; }
+
+    public LightLine? AddedLightOne { get; }
+
+    public LightLine? AddedLightTwo { get; }
 
     public OnUpdateEventArgs(Entities.LightMotor playerOne, Entities.LightMotor playerTwo, LightLine? addedLightOne, LightLine? addedLightTwo)
     {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-        this.addedLightOne = addedLightOne;
-        this.addedLightTwo = addedLightTwo;
+        PlayerOne = playerOne;
+        PlayerTwo = playerTwo;
+        AddedLightOne = addedLightOne;
+        AddedLightTwo = addedLightTwo;
     }
 }

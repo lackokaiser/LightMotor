@@ -1,28 +1,29 @@
 using System.Text;
 using LightMotor.Entities;
+using WinPersistance;
 
 namespace LightMotor.Game;
 
-public class Field
+public class Field : ISavable
 {
-    private int size;
-    private List<Entity> entities = new ();
-    private IInputHandler[] playerHandlers;
+    public int Size { get; }
+    private readonly List<Entity> _entities = new ();
+    private readonly IInputHandler[] _playerHandlers;
     public GameStatus GameStatus { get; private set; }
 
-    public List<Entity> Entities => new(entities);
+    public List<Entity> Entities => new(_entities);
 
     public Field(int size)
     {
-        this.size = size;
+        Size = size;
         GameStatus = PlayStatus.Get();
 
-        Entities.LightMotor playerOne = new (new Position(size / 2, size / 2), WestDirection.Get(), NoTurn.Get()), 
-            playerTwo = new (new Position(size / 2 + 1, size / 2), EastDirection.Get(), NoTurn.Get());
-        entities.Add(playerOne);
-        entities.Add(playerTwo);
+        Entities.LightMotor playerOne = new (new Position(size / 2 - 1, size / 2), WestDirection.Get(), NoTurn.Get()), 
+            playerTwo = new (new Position(size / 2, size / 2 + 1), EastDirection.Get(), NoTurn.Get());
+        _entities.Add(playerOne);
+        _entities.Add(playerTwo);
         // create two motor and place them on the field
-        playerHandlers = new IInputHandler[] { playerOne, playerTwo };
+        _playerHandlers = new IInputHandler[] { playerOne, playerTwo };
     }
 
     public Field(string data)
@@ -31,7 +32,7 @@ public class Field
 
         string[] main = split[0].Split();
 
-        size = int.Parse(main[0]);
+        Size = int.Parse(main[0]);
         byte status = byte.Parse(main[1]);
         
         if(status == 0)
@@ -40,27 +41,65 @@ public class Field
             GameStatus = FirstPlayerWinStatus.Get();
         else if(status == 2)
             GameStatus = SecondPlayerWinStatus.Get();
+        else if(status == 3)
+            GameStatus = DrawStatus.Get();
+        else
+            GameStatus = PlayStatus.Get();
 
         int entSize = int.Parse(main[2]);
         for (int i = 0; i < entSize; i++)
         {
             var ent = Entity.Load(split[i + 1]);
             if(ent != null)
-                entities.Add(ent);
+                _entities.Add(ent);
         }
         
-        playerHandlers = new [] { (IInputHandler)entities[0], (IInputHandler)entities[1] };
+        _playerHandlers = new [] { (IInputHandler)_entities[0], (IInputHandler)_entities[1] };
     }
 
     /// <summary>
     /// Handles movement input from the view
     /// </summary>
-    /// <param name="input">The input itself</param>
+    /// <param name="direction">The input itself</param>
     /// <param name="player">The player index</param>
     /// <exception cref="ArgumentOutOfRangeException">If the player index is not 0 or 1</exception>
-    public void AcceptInput(InputType input, int player)
+    public void AcceptInput(Direction direction, int player)
     {
-        playerHandlers[player].AcceptInput(input);
+        Entities.LightMotor? motor = _playerHandlers[player] as Entities.LightMotor;
+
+        InputType? input = null;
+        
+        if (motor?.Direction == NorthDirection.Get())
+        {
+            if(direction == WestDirection.Get())
+                input = LeftInput.Get();
+            else if (direction == EastDirection.Get())
+                input = RightInput.Get();
+        }
+        else if (motor?.Direction == WestDirection.Get())
+        {
+            if(direction == SouthDirection.Get())
+                input = LeftInput.Get();
+            else if (direction == NorthDirection.Get())
+                input = RightInput.Get();
+        }
+        else if (motor?.Direction == SouthDirection.Get())
+        {
+            if(direction == EastDirection.Get())
+                input = LeftInput.Get();
+            else if (direction == WestDirection.Get())
+                input = RightInput.Get();
+        }
+        else if (motor?.Direction == EastDirection.Get())
+        {
+            if(direction == NorthDirection.Get())
+                input = LeftInput.Get();
+            else if (direction == SouthDirection.Get())
+                input = RightInput.Get();
+        }
+        
+        // calc inputType from direction
+        _playerHandlers[player].AcceptInput(input);
     }
 
     /// <summary>
@@ -68,12 +107,13 @@ public class Field
     /// </summary>
     public void Update()
     {
-        foreach (var entity in entities)
+        for (int i = 0; i < Entities.Count; i++)
         {
+            var entity = Entities[i];
             if (entity is Entities.LightMotor motor)
             {
                 LightLine line = new LightLine(motor.Position, motor.Direction, motor.NextTurnDirection);
-                entities.Add(line);
+                _entities.Add(line);
             }
             entity.Update();
         }
@@ -85,15 +125,15 @@ public class Field
     /// <returns>True if the game status has changed</returns>
     public bool CheckStatus()
     {
-        LightMotor.Entities.LightMotor playerOne = (Entities.LightMotor)playerHandlers[0];
-        LightMotor.Entities.LightMotor playerTwo = (Entities.LightMotor)playerHandlers[1];
+        Entities.LightMotor playerOne = (Entities.LightMotor)_playerHandlers[0];
+        Entities.LightMotor playerTwo = (Entities.LightMotor)_playerHandlers[1];
 
         
         
         GameStatus nextStatus = PlayStatus.Get();
 
-        bool oneOut = playerOne.Position.IsOutOfBounds(0, 0, size, size);
-        bool twoOut = playerTwo.Position.IsOutOfBounds(0, 0, size, size);
+        bool oneOut = playerOne.Position.IsOutOfBounds(0, 0, Size - 1, Size - 1);
+        bool twoOut = playerTwo.Position.IsOutOfBounds(0, 0, Size - 1, Size - 1);
 
         if (oneOut && twoOut) // draw
         {
@@ -133,14 +173,14 @@ public class Field
             }
         }
 
-        for (int i = 2; i < entities.Count; i++)
+        for (int i = 2; i < _entities.Count; i++)
         {
-            if (entities[i].IsTouching(playerOne)) // collision with light
+            if (_entities[i].IsTouching(playerOne)) // collision with light
             {
                 nextStatus = SecondPlayerWinStatus.Get();
                 break;
             }
-            else if (entities[i].IsTouching(playerTwo)) // collision with light
+            else if (_entities[i].IsTouching(playerTwo)) // collision with light
             {
                 nextStatus = FirstPlayerWinStatus.Get();
                 break;
@@ -160,7 +200,7 @@ public class Field
     /// Converts the entire game state to a string
     /// </summary>
     /// <returns>The string representing the current game</returns>
-    public string Save()
+    public string Save(string pre = "")
     {
         StringBuilder stb = new StringBuilder();
 
@@ -172,9 +212,11 @@ public class Field
             statusByte = 1;
         else if (GameStatus == SecondPlayerWinStatus.Get())
             statusByte = 2;
+        else if (GameStatus == DrawStatus.Get())
+            statusByte = 3;
 
-        stb.AppendLine(size + " " + statusByte + " " + entities.Count);
-        foreach (var entity in entities)
+        stb.AppendLine(Size + " " + statusByte + " " + _entities.Count);
+        foreach (var entity in _entities)
         {
             stb.AppendLine(entity.Save());
         }

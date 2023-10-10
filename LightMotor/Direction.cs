@@ -7,12 +7,12 @@ namespace LightMotor;
 /// </summary>
 public abstract class Direction
 {
-    protected int rotation;
+    protected int Rot;
 
     /// <summary>
     /// The rotation the <seealso cref="Entity"/> should have
     /// </summary>
-    public int Rotation => rotation;
+    public int Rotation => Rot;
 
     /// <summary>
     /// Calculates the next direction for the current direction
@@ -59,16 +59,16 @@ public abstract class Direction
 /// </summary>
 public class WestDirection : Direction
 {
-    private static WestDirection? instance;
+    private static WestDirection? _instance;
     private WestDirection()
     {
-        rotation = 0; // figure out rotation
+        Rot = 0; // figure out rotation
     }
 
     public static WestDirection Get()
     {
-        instance ??= new WestDirection();
-        return instance;
+        _instance ??= new WestDirection();
+        return _instance;
     }
 }
 
@@ -77,16 +77,16 @@ public class WestDirection : Direction
 /// </summary>
 public class EastDirection : Direction
 {
-    private static EastDirection? instance;
+    private static EastDirection? _instance;
     private EastDirection()
     {
-        rotation = 0; // figure out rotation
+        Rot = 0; // figure out rotation
     }
 
     public static EastDirection Get()
     {
-        instance ??= new EastDirection();
-        return instance;
+        _instance ??= new EastDirection();
+        return _instance;
     }
 }
 
@@ -95,16 +95,16 @@ public class EastDirection : Direction
 /// </summary>
 public class SouthDirection : Direction
 {
-    private static SouthDirection? instance;
+    private static SouthDirection? _instance;
     private SouthDirection()
     {
-        rotation = 0; // figure out rotation
+        Rot = 0; // figure out rotation
     }
 
     public static SouthDirection Get()
     {
-        instance ??= new SouthDirection();
-        return instance;
+        _instance ??= new SouthDirection();
+        return _instance;
     }
 }
 
@@ -113,15 +113,15 @@ public class SouthDirection : Direction
 /// </summary>
 public class NorthDirection : Direction
 {
-    private static NorthDirection? instance;
+    private static NorthDirection? _instance;
     private NorthDirection()
     {
-        rotation = 0; // figure out rotation
+        Rot = 0; // figure out rotation
     }
 
     public static NorthDirection Get()
     {
-        instance ??= new NorthDirection();
-        return instance;
+        _instance ??= new NorthDirection();
+        return _instance;
     }
 }

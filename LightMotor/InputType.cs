@@ -11,14 +11,14 @@ public abstract class InputType
 /// </summary>
 public class LeftInput : InputType
 {
-    private static LeftInput? instance;
+    private static LeftInput? _instance;
     
     private LeftInput(){}
 
     public static LeftInput Get()
     {
-        instance ??= new LeftInput();
-        return instance;
+        _instance ??= new LeftInput();
+        return _instance;
     }
 }
 
@@ -27,13 +27,13 @@ public class LeftInput : InputType
 /// </summary>
 public class RightInput : InputType
 {
-    private static RightInput? instance;
+    private static RightInput? _instance;
     
     private RightInput(){}
 
     public static RightInput Get()
     {
-        instance ??= new RightInput();
-        return instance;
+        _instance ??= new RightInput();
+        return _instance;
     }
 }

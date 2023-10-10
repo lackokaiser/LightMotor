@@ -14,13 +14,13 @@ public abstract class TurnDirection
 /// </summary>
 public class NoTurn : TurnDirection
 {
-    private static NoTurn? instance;
+    private static NoTurn? _instance;
     private NoTurn(){}
 
     public static NoTurn Get()
     {
-        instance ??= new NoTurn();
-        return instance;
+        _instance ??= new NoTurn();
+        return _instance;
     }
 }
 
@@ -29,13 +29,13 @@ public class NoTurn : TurnDirection
 /// </summary>
 public class TurnLeft : TurnDirection
 {
-    private static TurnLeft? instance;
+    private static TurnLeft? _instance;
     private TurnLeft(){}
 
     public static TurnLeft Get()
     {
-        instance ??= new TurnLeft();
-        return instance;
+        _instance ??= new TurnLeft();
+        return _instance;
     }
 }
 
@@ -44,12 +44,12 @@ public class TurnLeft : TurnDirection
 /// </summary>
 public class TurnRight : TurnDirection
 {
-    private static TurnRight? instance;
+    private static TurnRight? _instance;
     private TurnRight(){}
 
     public static TurnRight Get()
     {
-        instance ??= new TurnRight();
-        return instance;
+        _instance ??= new TurnRight();
+        return _instance;
     }
 }

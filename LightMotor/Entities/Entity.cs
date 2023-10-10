@@ -1,21 +1,22 @@
 using System.Text;
+using WinPersistance;
 
 namespace LightMotor.Entities;
 
-public abstract class Entity
+public abstract class Entity : ISavable
 {
-    protected Position pos;
-    protected Direction direction;
-    protected TurnDirection turnDirection;
+    protected Position Pos;
+    protected Direction Dir;
+    protected TurnDirection TurnDirection;
 
-    public Position Position => pos;
-    public Direction Direction => direction;
+    public Position Position => Pos;
+    public Direction Direction => Dir;
 
-    protected Entity(Position pos, Direction direction, TurnDirection turnDirection)
+    protected Entity(Position pos, Direction dir, TurnDirection turnDirection)
     {
-        this.pos = pos;
-        this.direction = direction;
-        this.turnDirection = turnDirection;
+        this.Pos = pos;
+        this.Dir = dir;
+        this.TurnDirection = turnDirection;
     }
 
     /// <summary>
@@ -25,7 +26,7 @@ public abstract class Entity
     /// <returns>True if their positions are equal</returns>
     public bool IsTouching(Entity entity)
     {
-        return entity.pos == pos;
+        return entity.Pos == Pos;
     }
 
     /// <summary>
@@ -39,22 +40,22 @@ public abstract class Entity
     {
         StringBuilder stb = new StringBuilder(pre);
 
-        stb.Append(pos.X + " " + pos.Y + " ");
+        stb.Append(Pos.X + " " + Pos.Y + " ");
         byte dirByte = 0;
-        if (direction == NorthDirection.Get())
+        if (Dir == NorthDirection.Get())
             dirByte = 0;
-        else if (direction == EastDirection.Get())
+        else if (Dir == EastDirection.Get())
             dirByte = 1;
-        else if (direction == SouthDirection.Get())
+        else if (Dir == SouthDirection.Get())
             dirByte = 2;
-        else if (direction == WestDirection.Get())
+        else if (Dir == WestDirection.Get())
             dirByte = 3;
         
         byte nextTurn = 0;
 
-        if (turnDirection == TurnLeft.Get())
+        if (TurnDirection == TurnLeft.Get())
             nextTurn = 1;
-        else if (turnDirection == TurnRight.Get())
+        else if (TurnDirection == TurnRight.Get())
             nextTurn = 2;
 
         stb.Append(dirByte + " ");
@@ -72,9 +73,9 @@ public abstract class Entity
     {
         string[] tmp = data.Split();
 
-        var pos = new Position(int.Parse(tmp[2]), int.Parse(tmp[3]));
-        byte directionByte = byte.Parse(tmp[4]);
-        byte turnDir = byte.Parse(tmp[1]);
+        var pos = new Position(int.Parse(tmp[1]), int.Parse(tmp[2]));
+        byte directionByte = byte.Parse(tmp[3]);
+        byte turnDir = byte.Parse(tmp[4]);
 
         TurnDirection turnDirection = NoTurn.Get();
         Direction direction = NorthDirection.Get();

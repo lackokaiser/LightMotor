@@ -4,7 +4,7 @@ namespace LightMotor.Entities;
 
 public class LightLine : Entity
 {
-    public TurnDirection FacingDirection => turnDirection;
+    public TurnDirection FacingDirection => TurnDirection;
     
     public LightLine(Position pos, Direction direction, TurnDirection turnDirection) : base(pos, direction, turnDirection)
     {
