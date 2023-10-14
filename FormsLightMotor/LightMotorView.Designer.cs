@@ -27,6 +27,7 @@ partial class LightMotorView
     private NumericUpDown fieldSize;
     private Button loadButton;
     private Panel gamePanel;
+    private Label statusLabel;
 
     /// <summary>
     ///  Required method for Designer support - do not modify
@@ -50,6 +51,7 @@ partial class LightMotorView
         gamePanel.Location = new Point(0, 0);
         gamePanel.Padding = new Padding(30);
         gamePanel.Visible = false;
+        gamePanel.KeyDown += OnKeyDown;
 
         startButton = new Button();
         startButton.Size = new Size(100, 30);
@@ -68,11 +70,17 @@ partial class LightMotorView
         loadButton.Location = new Point(50, 180);
         loadButton.Text = "Load Game";
         loadButton.Click += LoadButtonClick;
+
+        statusLabel = new Label();
+        statusLabel.Visible = false;
+        statusLabel.TextAlign = ContentAlignment.MiddleCenter;
+        statusLabel.Dock = DockStyle.Top;
         
         Controls.Add(startButton);
         Controls.Add(fieldSize);
         Controls.Add(loadButton);
         Controls.Add(gamePanel);
+        Controls.Add(statusLabel);
     }
 
     #endregion
