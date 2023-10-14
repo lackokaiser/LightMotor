@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinPersistance", "WinPersis
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor.Tests", "LightMotor.Tests\LightMotor.Tests.csproj", "{66491887-A926-43A7-B0B6-81EA24C75384}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinPersistance.Tests", "WinPersistance.Tests\WinPersistance.Tests.csproj", "{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{66491887-A926-43A7-B0B6-81EA24C75384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66491887-A926-43A7-B0B6-81EA24C75384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66491887-A926-43A7-B0B6-81EA24C75384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
