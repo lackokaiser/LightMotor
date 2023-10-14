@@ -62,7 +62,7 @@ public class WestDirection : Direction
     private static WestDirection? _instance;
     private WestDirection()
     {
-        Rot = 0; // figure out rotation
+        Rot = 180; // figure out rotation
     }
 
     public static WestDirection Get()
@@ -98,7 +98,7 @@ public class SouthDirection : Direction
     private static SouthDirection? _instance;
     private SouthDirection()
     {
-        Rot = 0; // figure out rotation
+        Rot = 90; // figure out rotation
     }
 
     public static SouthDirection Get()
@@ -116,7 +116,7 @@ public class NorthDirection : Direction
     private static NorthDirection? _instance;
     private NorthDirection()
     {
-        Rot = 0; // figure out rotation
+        Rot = 270; // figure out rotation
     }
 
     public static NorthDirection Get()

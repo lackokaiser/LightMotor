@@ -12,4 +12,10 @@
       <ProjectReference Include="..\LightMotor\LightMotor.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="Resources\motor.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

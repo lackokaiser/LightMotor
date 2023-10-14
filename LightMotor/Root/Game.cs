@@ -2,7 +2,7 @@ using LightMotor.Entities;
 using LightMotor.Event;
 using WinPersistance;
 
-namespace LightMotor.Game;
+namespace LightMotor.Root;
 
 public delegate void OnGameUpdate(object source, OnUpdateEventArgs e);
 public delegate void OnGameStateChanged(object obj, StateChangeEventArgs e);

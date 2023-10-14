@@ -1,17 +1,18 @@
-using System.Diagnostics;
+using System.Drawing.Drawing2D;
 using LightMotor;
+using LightMotor.Entities;
 using LightMotor.Event;
-using LightMotor.Game;
+using LightMotor.Root;
 
 namespace FormsLightMotor;
 
 public partial class LightMotorView : Form
 {
     private readonly Game _model = new ();
-    private bool HasGameStarted => _players[0] != null;
+    private bool HasGameStarted => _players[0].Item1 != null;
 
-    private Control?[] _players = new Control?[2];
-    private List<Control> _lights = new();
+    private (PictureBox?, float rotation)[] _players = new (PictureBox?, float rotation)[2];
+    private readonly List<PictureBox> _lights = new();
     
     public LightMotorView()
     {
@@ -88,35 +89,48 @@ public partial class LightMotorView : Form
     {
         Invoke(delegate
         {
-            _players[0]!.Location = CalculateLocation(e.PlayerOne.Position);
-            _players[1]!.Location = CalculateLocation(e.PlayerTwo.Position);
-        
-            // TODO: direction for images
+            _players[0].Item1!.Location = CalculateLocation(e.PlayerOne.Position);
+            _players[1].Item1!.Location = CalculateLocation(e.PlayerTwo.Position);
 
+            float rotationPlayerOne = _players[0].Item2 - e.PlayerOne.Direction.Rotation;
+            float rotationPlayerTwo = _players[1].Item2 - e.PlayerTwo.Direction.Rotation;
+            
+            _players[0].Item1!.Image = RotateImage(_players[0].Item1!.Image, rotationPlayerOne,
+                rotationPlayerOne >= 180);
+            _players[1].Item1!.Image = RotateImage(_players[1].Item1!.Image, rotationPlayerTwo,
+                rotationPlayerTwo >= 180);
+
+            _players[0].Item2 = e.PlayerOne.Direction.Rotation;
+            _players[1].Item2 = e.PlayerTwo.Direction.Rotation;
+            
             if (e.AddedLightOne != null)
             {
-                Button light = new Button();
+                PictureBox light = new PictureBox();
 
                 light.Location = CalculateLocation(e.AddedLightOne.Position);
                 light.Size = new Size(24, 24);
                 light.Enabled = false;
-                light.BackColor = Color.Aqua;
-                // TODO: calculate rotation
-            
-                _lights.Add(light);
-                gamePanel.Controls.Add(light);
+
+                Bitmap map = new Bitmap(24, 24);
+
+                map = DrawLightLine(map, e.AddedLightOne.Direction, e.AddedLightOne.FacingDirection, Brushes.Orange);
+                light.Image = map;
+                gamePanel.Controls.Add(light); 
             }
 
             if (e.AddedLightTwo != null)
             {
-                Button light = new Button();
+                PictureBox light = new PictureBox();
 
                 light.Location = CalculateLocation(e.AddedLightTwo.Position);
                 light.Size = new Size(24, 24);
                 light.Enabled = false;
-                light.BackColor = Color.Aqua;
-                // TODO: calculate rotation
             
+                Bitmap map = new Bitmap(24, 24);
+                
+                map = DrawLightLine(map, e.AddedLightTwo.Direction, e.AddedLightTwo.FacingDirection, Brushes.Aqua);
+                light.Image = map;
+
                 _lights.Add(light);
                 gamePanel.Controls.Add(light);
             }
@@ -131,34 +145,48 @@ public partial class LightMotorView : Form
         {
             gamePanel.Visible = true;
             
-            Button playerOne = new Button();
+            PictureBox playerOne = new ();
             playerOne.Location = CalculateLocation(e.PlayerOne.Position);
             playerOne.Size = new Size(24, 24);
-            playerOne.Enabled = false;
 
-            Button playerTwo = new Button();
+            Bitmap map = new Bitmap("./Resources/motor.png");
+
+            map = RotateImage(map, e.PlayerOne.Direction.Rotation, e.PlayerOne.Direction.Rotation >= 180);
+            
+            playerOne.Image = map;
+            playerOne.SizeMode = PictureBoxSizeMode.AutoSize;
+
+            PictureBox playerTwo = new PictureBox();
             playerTwo.Location = CalculateLocation(e.PlayerTwo.Position);
             playerTwo.Size = new Size(24, 24);
-            playerTwo.Enabled = false;
+            Bitmap map2 = new Bitmap("./Resources/motor.png");
 
-            // TODO: direction calc for image
+            map2 = RotateImage(map2, e.PlayerTwo.Direction.Rotation, e.PlayerTwo.Direction.Rotation >= 180);
 
-            _players[0] = playerOne;
-            _players[1] = playerTwo;
+            playerTwo.Image = map2;
+            playerTwo.SizeMode = PictureBoxSizeMode.AutoSize;
 
-            gamePanel.Controls.Add(_players[0]!);
-            gamePanel.Controls.Add(_players[1]!);
+            _players[0].Item1 = playerOne;
+            _players[0].Item2 = e.PlayerOne.Direction.Rotation;
+            _players[1].Item1 = playerTwo;
+            _players[1].Item2 = e.PlayerTwo.Direction.Rotation;
 
-            foreach (var addedLight in e.Lights)
+            gamePanel.Controls.Add(_players[0].Item1!);
+            gamePanel.Controls.Add(_players[1].Item1!);
+
+            for (int i = 0; i < e.Lights.Length; i++)
             {
-                Button light = new Button();
+                var addedLight = e.Lights[i];
+                PictureBox light = new PictureBox();
 
                 light.Location = CalculateLocation(addedLight.Position);
                 light.Size = new Size(24, 24);
                 light.Enabled = false;
-                light.BackColor = Color.Aqua;
-                // TODO: calculate rotation
-            
+                Bitmap image = new Bitmap(24, 24);
+
+                image = DrawLightLine(image, addedLight.Direction, ((LightLine)addedLight).FacingDirection, i % 2 == 0 ? Brushes.Aqua : Brushes.Orange);
+                light.Image = image;
+                
                 _lights.Add(light);
                 gamePanel.Controls.Add(light);
             }
@@ -182,6 +210,111 @@ public partial class LightMotorView : Form
         return new Point(24 * p.X, 24 * p.Y);
     }
 
+    private Bitmap DrawLightLine(Image img, Direction direction, TurnDirection facingDirection, Brush brush, float width = 10)
+    {
+        Bitmap bmp = new Bitmap(img.Width, img.Height);
+        
+        Graphics g = Graphics.FromImage(bmp);
+
+        Pen p = new Pen(brush, width);
+
+
+        if (facingDirection is NoTurn)
+        {
+            if (direction is SouthDirection or NorthDirection)
+                g.DrawLine(p, new Point(12, 0), new Point(12, 24));
+            else if (direction is WestDirection or EastDirection)
+                g.DrawLine(p, new Point(0, 12), new Point(24, 12));            
+        }
+        else if (facingDirection is TurnLeft)
+        {
+            if (direction is SouthDirection)
+            {
+                g.DrawLine(p, new Point(12, 12), new Point(12, 24));
+                g.DrawLine(p, new Point(24, 12), new Point(12, 12));
+            }
+            else if (direction is NorthDirection)
+            {
+                g.DrawLine(p, new Point(12, 0), new Point(12, 12));
+                g.DrawLine(p, new Point(12, 12), new Point(0, 12));
+            }
+            else if (direction is WestDirection)
+            {
+                g.DrawLine(p, new Point(12, 12), new Point(24, 12));
+                g.DrawLine(p, new Point(12, 12), new Point(12, 0));
+            }
+            else // EastDirection
+            {
+                g.DrawLine(p, new Point(0, 12), new Point(12, 12));
+                g.DrawLine(p, new Point(12, 12), new Point(12, 24));
+            }    
+        }
+        else if (facingDirection is TurnRight)
+        {
+            if (direction is SouthDirection)
+            {
+                g.DrawLine(p, new Point(12, 12), new Point(12, 24));
+                g.DrawLine(p, new Point(0, 12), new Point(12, 12));
+            }
+            else if (direction is NorthDirection)
+            {
+                g.DrawLine(p, new Point(12, 0), new Point(12, 12));
+                g.DrawLine(p, new Point(12, 12), new Point(24, 12));
+            }
+            else if (direction is WestDirection)
+            {
+                g.DrawLine(p, new Point(12, 12), new Point(24, 12));
+                g.DrawLine(p, new Point(12, 12), new Point(12, 24));
+            }
+            else // EastDirection
+            {
+                g.DrawLine(p, new Point(0, 12), new Point(12, 12));
+                g.DrawLine(p, new Point(12, 12), new Point(12, 0));
+            }
+        }
+        
+        
+        g.DrawImage(img, new Point(0, 0));
+        
+        g.Dispose();
+        p.Dispose();
+
+        return bmp;
+    }
+
+    private Bitmap RotateImage(Image img, float rotationAngle, bool flipImage = false)
+    {
+        //create an empty Bitmap image
+        Bitmap bmp = new Bitmap(img.Width, img.Height);
+
+        //turn the Bitmap into a Graphics object
+        Graphics gfx = Graphics.FromImage(bmp);
+
+        //now we set the rotation point to the center of our image
+        gfx.TranslateTransform((float)bmp.Width / 2, (float)bmp.Height / 2);
+
+        //now rotate the image
+        gfx.RotateTransform(rotationAngle);
+
+        gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
+
+        //set the InterpolationMode to HighQualityBicubic so to ensure a high
+        //quality image once it is transformed to the specified size
+        gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+        //now draw our new image onto the graphics object
+        gfx.DrawImage(img, new Point(0, 0));
+
+        //dispose of our Graphics object
+        gfx.Dispose();
+
+        if(flipImage)
+            bmp.RotateFlip(RotateFlipType.RotateNoneFlipY);
+        
+        //return the image
+        return bmp;
+    }
+
     private void OnKeyDown(object? sender, KeyEventArgs e)
     {   
         if (e.KeyCode is Keys.H or Keys.Help)
@@ -193,7 +326,7 @@ public partial class LightMotorView : Form
             _model.Paused = false;
             _model.Stop();
             _lights.Clear();
-            _players = new Control[2];
+            _players = new (PictureBox?, float rotation)[2];
             Controls.Clear();
             InitializeComponent();
         }
