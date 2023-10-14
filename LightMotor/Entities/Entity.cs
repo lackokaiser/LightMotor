@@ -3,13 +3,22 @@ using WinPersistance;
 
 namespace LightMotor.Entities;
 
+/// <summary>
+/// Base class for all object on the playing field 
+/// </summary>
 public abstract class Entity : ISavable
 {
     protected Position Pos;
     protected Direction Dir;
     protected TurnDirection TurnDirection;
 
+    /// <summary>
+    /// The Entity's position on the field
+    /// </summary>
     public Position Position => Pos;
+    /// <summary>
+    /// The Entity's direction
+    /// </summary>
     public Direction Direction => Dir;
 
     protected Entity(Position pos, Direction dir, TurnDirection turnDirection)
@@ -65,10 +74,15 @@ public abstract class Entity : ISavable
     }
     
     /// <summary>
-    /// Updates the entity's state
+    /// Updates the entity
     /// </summary>
     public abstract void Update();
     
+    /// <summary>
+    /// Loads an entity from a data string
+    /// </summary>
+    /// <param name="data">The received data</param>
+    /// <returns>The entity that was loaded (can be null)</returns>
     public static Entity? Load(string data)
     {
         string[] tmp = data.Split();

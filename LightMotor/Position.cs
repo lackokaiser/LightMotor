@@ -7,8 +7,14 @@ public struct Position
 {
     private int _x, _y;
 
+    /// <summary>
+    /// The X component of the coordinate
+    /// </summary>
     public int X => _x;
 
+    /// <summary>
+    /// The Y component of the coordinate
+    /// </summary>
     public int Y => _y;
 
     public Position(int x, int y)
@@ -23,7 +29,7 @@ public struct Position
     /// <param name="x">The amount added</param>
     public void AddX(int x)
     {
-        this._x += x;
+        _x += x;
     }
 
     /// <summary>
@@ -32,7 +38,7 @@ public struct Position
     /// <param name="y">The amount added</param>
     public void AddY(int y)
     {
-        this._y += y;
+        _y += y;
     }
 
     /// <summary>

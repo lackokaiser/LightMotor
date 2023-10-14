@@ -15,6 +15,7 @@ public class LeftInput : InputType
     
     private LeftInput(){}
 
+    /// <returns>The singleton instance for <see cref="LeftInput"/></returns>
     public static LeftInput Get()
     {
         _instance ??= new LeftInput();
@@ -31,6 +32,7 @@ public class RightInput : InputType
     
     private RightInput(){}
 
+    /// <returns>The singleton instance for <see cref="RightInput"/></returns>
     public static RightInput Get()
     {
         _instance ??= new RightInput();

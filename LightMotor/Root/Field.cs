@@ -4,15 +4,32 @@ using WinPersistance;
 
 namespace LightMotor.Root;
 
+/// <summary>
+/// Represents the game's playing field
+/// <seealso cref="Game"/>
+/// </summary>
 public class Field : ISavable
 {
+    /// <summary>
+    /// The field's size
+    /// </summary>
     public int Size { get; }
     private readonly List<Entity> _entities = new ();
     private readonly IInputHandler[] _playerHandlers;
+    /// <summary>
+    /// The game's current status
+    /// </summary>
     public GameStatus GameStatus { get; private set; }
 
+    /// <summary>
+    /// Entities that are on the field
+    /// </summary>
     public List<Entity> Entities => new(_entities);
 
+    /// <summary>
+    /// Constructs a starting field
+    /// </summary>
+    /// <param name="size">The field's size</param>
     public Field(int size)
     {
         Size = size;
@@ -26,6 +43,10 @@ public class Field : ISavable
         _playerHandlers = new IInputHandler[] { playerOne, playerTwo };
     }
 
+    /// <summary>
+    /// Constructs the field object using a data string, usually from a file
+    /// </summary>
+    /// <param name="data">The data string</param>
     public Field(string data)
     {
         string[] split = data.Split('\n');
@@ -62,7 +83,7 @@ public class Field : ISavable
     /// </summary>
     /// <param name="direction">The input itself</param>
     /// <param name="player">The player index</param>
-    /// <exception cref="ArgumentOutOfRangeException">If the player index is not 0 or 1</exception>
+    /// <exception cref="IndexOutOfRangeException">If the player index is not 0 or 1</exception>
     public void AcceptInput(Direction direction, int player)
     {
         Entities.LightMotor? motor = _playerHandlers[player] as Entities.LightMotor;

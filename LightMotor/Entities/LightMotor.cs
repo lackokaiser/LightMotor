@@ -2,6 +2,9 @@ using System.Text;
 
 namespace LightMotor.Entities;
 
+/// <summary>
+/// A player controlled motor on the field
+/// </summary>
 public class LightMotor : Entity, IInputHandler
 {
     public LightMotor(Position pos, Direction dir, TurnDirection turnDirection) : base(pos, dir, turnDirection)
@@ -9,14 +12,13 @@ public class LightMotor : Entity, IInputHandler
     }
 
     /// <summary>
+    /// The next turn direction of the player <br/>
     /// Accessibility to this value ensures the creations of new light lines
     /// </summary>
     public TurnDirection NextTurnDirection => TurnDirection;
 
     public override void Update()
     {
-        // TODO: spawn new light using the direction and the next direction
-        
         Dir = Direction.GetTurnFor(Dir, TurnDirection);
         TurnDirection = NoTurn.Get(); 
         

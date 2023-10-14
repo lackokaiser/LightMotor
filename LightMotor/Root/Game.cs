@@ -15,8 +15,19 @@ public delegate void OnGameInitialized(object obj, GameInitializedEventArgs e);
 /// </summary>
 public class Game : PersistanceProvider
 {
+    /// <summary>
+    /// Event which is called whenever the game updates
+    /// </summary>
     public event OnGameUpdate? OnUpdate;
+    
+    /// <summary>
+    /// Event which is called whenever the game's state changes
+    /// </summary>
     public event OnGameStateChanged? OnStateChanged;
+    
+    /// <summary>
+    /// Event which is called when the game is initialized
+    /// </summary>
     public event OnGameInitialized? OnGameInitialized;
     private Field? _field;
     private CancellationTokenSource? _token;
@@ -35,7 +46,7 @@ public class Game : PersistanceProvider
     {
         // cancel the previous game if possible
         Stop();
-        
+
         _token = new CancellationTokenSource();
         _field = new Field(n);
         var entities = _field.Entities;
@@ -112,14 +123,14 @@ public class Game : PersistanceProvider
     }
 
     /// <summary>
-    /// Starts the execution of the game
-    /// <exception cref="Exception">If the <see cref="Init"/> function has not yet been called</exception>
+    /// Starts the execution of the game, if the game was not initialized yet, nothing will happen
+    /// <seealso cref="Init"/>
     /// </summary>
     public async Task Run()
     {
         if (_field == null || _token == null)
         {
-            throw new Exception("Can't start an empty game!");
+            throw new ApplicationException("Can't start an empty game!");
         }
 
         await Task.Run(() =>
@@ -140,7 +151,7 @@ public class Game : PersistanceProvider
                 
                 var ent = _field.Entities;
                 OnUpdateInvoke(this, new OnUpdateEventArgs((Entities.LightMotor)ent[0], (Entities.LightMotor)ent[1],
-                    (LightLine?)ent[^1], (LightLine?)_field.Entities[^2]));
+                    (LightLine?)ent[^2], (LightLine?)_field.Entities[^1]));
 
                 
             }
@@ -153,5 +164,6 @@ public class Game : PersistanceProvider
     public void Stop()
     {
         _token?.Cancel();
+        Paused = false;
     }
 }

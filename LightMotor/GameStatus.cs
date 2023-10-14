@@ -15,6 +15,7 @@ public class PlayStatus : GameStatus
 
     private PlayStatus(){}
 
+    /// <returns>The singleton instance for <see cref="PlayStatus"/></returns>
     public static PlayStatus Get()
     {
         _instance ??= new PlayStatus();
@@ -32,6 +33,7 @@ public class FirstPlayerWinStatus : GameStatus
 
     private FirstPlayerWinStatus(){}
 
+    /// <returns>The singleton instance for <see cref="FirstPlayerWinStatus"/></returns>
     public static FirstPlayerWinStatus Get()
     {
         _instance ??= new FirstPlayerWinStatus();
@@ -48,6 +50,7 @@ public class SecondPlayerWinStatus : GameStatus
 
     private SecondPlayerWinStatus(){}
 
+    /// <returns>The singleton instance for <see cref="SecondPlayerWinStatus"/></returns>
     public static SecondPlayerWinStatus Get()
     {
         _instance ??= new SecondPlayerWinStatus();
@@ -64,6 +67,7 @@ public class DrawStatus : GameStatus
 
     private DrawStatus(){}
 
+    /// <returns>The singleton instance for <see cref="DrawStatus"/></returns>
     public static DrawStatus Get()
     {
         _instance ??= new DrawStatus();

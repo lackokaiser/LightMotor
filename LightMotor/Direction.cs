@@ -62,9 +62,10 @@ public class WestDirection : Direction
     private static WestDirection? _instance;
     private WestDirection()
     {
-        Rot = 180; // figure out rotation
+        Rot = 180;
     }
 
+    /// <returns>The singleton instance for <see cref="WestDirection"/></returns>
     public static WestDirection Get()
     {
         _instance ??= new WestDirection();
@@ -80,9 +81,10 @@ public class EastDirection : Direction
     private static EastDirection? _instance;
     private EastDirection()
     {
-        Rot = 0; // figure out rotation
+        Rot = 0;
     }
 
+    /// <returns>The singleton instance for <see cref="EastDirection"/></returns>
     public static EastDirection Get()
     {
         _instance ??= new EastDirection();
@@ -98,9 +100,10 @@ public class SouthDirection : Direction
     private static SouthDirection? _instance;
     private SouthDirection()
     {
-        Rot = 90; // figure out rotation
+        Rot = 90;
     }
 
+    /// <returns>The singleton instance for <see cref="SouthDirection"/></returns>
     public static SouthDirection Get()
     {
         _instance ??= new SouthDirection();
@@ -116,9 +119,10 @@ public class NorthDirection : Direction
     private static NorthDirection? _instance;
     private NorthDirection()
     {
-        Rot = 270; // figure out rotation
+        Rot = 270;
     }
 
+    /// <returns>The singleton instance for <see cref="NorthDirection"/></returns>
     public static NorthDirection Get()
     {
         _instance ??= new NorthDirection();
