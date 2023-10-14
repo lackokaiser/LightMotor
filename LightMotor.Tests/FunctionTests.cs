@@ -1,5 +1,5 @@
-
 using LightMotor.Root;
+using LightMotorClass = LightMotor.Entities.LightMotor;
 
 namespace LightMotor.Tests;
 
@@ -11,9 +11,12 @@ public class FunctionTests
     public void GameInitializationTest()
     {
         Game gm = new Game();
-
-        Assert.ThrowsException<Exception>(() => gm.Run());
-        Assert.ThrowsException<ApplicationException>(() => gm.SaveGame("failing.txt"));
+        
+        Assert.IsFalse(gm.Paused);
+        var field = gm.GetFieldValue<Field?>("_field");
+        var tokenGen = gm.GetFieldValue<CancellationTokenSource?>("_token");
+        Assert.IsNull(field);
+        Assert.IsNull(tokenGen);
     }
 
     [TestMethod]
@@ -44,7 +47,69 @@ public class FunctionTests
         f.AcceptInput(WestDirection.Get(), 1);
         
         Assert.IsTrue(playerTwo.NextTurnDirection is NoTurn);
+
+        Assert.ThrowsException<IndexOutOfRangeException>(() => f.AcceptInput(SouthDirection.Get(), 2));
+        Assert.ThrowsException<IndexOutOfRangeException>(() => f.AcceptInput(SouthDirection.Get(), -1));
+    }
+
+    [TestMethod]
+    public void GameFieldInitializationTest()
+    {
+        Game g = new Game();
+        g.Paused = true;
         
-        Assert.ThrowsException<>()
+        g.Init(12);
+        
+        Assert.IsFalse(g.Paused);
+        Field f = g.GetFieldValue<Field>("_field");
+        Assert.AreEqual(12, f.Size);
+        Assert.AreEqual(PlayStatus.Get(), f.GameStatus);
+        Assert.AreEqual(2, f.Entities.Count);
+        Assert.IsTrue(f.Entities[0] is Entities.LightMotor);
+        Assert.IsTrue(f.Entities[1] is Entities.LightMotor);
+    }
+
+    [TestMethod]
+    public void PositionTest()
+    {
+        Position position = new Position(0, 0);
+        position.AddX(1);
+        
+        Assert.AreEqual(1, position.X);
+        Assert.AreEqual(0, position.Y);
+        
+        position.AddY(-1);
+        
+        Assert.AreEqual(1, position.X);
+        Assert.AreEqual(-1, position.Y);
+        
+        position.AddX(0);
+
+        Assert.AreEqual(1, position.X);
+        Assert.AreEqual(-1, position.Y);
+
+        Assert.IsTrue(position.IsOutOfBounds(0, 0, 10, 10));
+        
+        position.AddY(1);
+        position.AddX(-1);
+        
+        Assert.IsFalse(position.IsOutOfBounds(0, 0, 10, 10));
+        
+        position.AddY(5);
+        position.AddX(5);
+
+        Assert.IsFalse(position.IsOutOfBounds(0, 0, 10, 10));
+        
+        position.AddY(5);
+        position.AddX(5);
+
+        Assert.IsFalse(position.IsOutOfBounds(0, 0, 10, 10));
+
+        Position newPos = new Position(10, 10);
+        
+        Assert.IsTrue(newPos == position);
+        newPos.AddY(1);
+        
+        Assert.IsTrue(newPos != position);
     }
 }
