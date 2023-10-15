@@ -13,7 +13,7 @@ public delegate void OnGameInitialized(object obj, GameInitializedEventArgs e);
 /// This class controls the game's state and updates
 /// <seealso cref="Field"/>
 /// </summary>
-public class Game : PersistanceProvider
+public class Game : PersistanceProvider, IDisposable
 {
     /// <summary>
     /// Event which is called whenever the game updates
@@ -165,5 +165,10 @@ public class Game : PersistanceProvider
     {
         _token?.Cancel();
         Paused = false;
+    }
+
+    public void Dispose()
+    {
+        _token?.Dispose();
     }
 }

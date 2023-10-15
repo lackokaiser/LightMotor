@@ -16,6 +16,7 @@ partial class LightMotorView
         if (disposing && (components != null))
         {
             components.Dispose();
+            _model.Dispose();
         }
 
         base.Dispose(disposing);
