@@ -80,6 +80,6 @@ public struct Position
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(_x, _y);
+        return 0;
     }
 }
