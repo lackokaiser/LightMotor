@@ -128,9 +128,8 @@ public class Field : ISavable
     /// </summary>
     public void Update()
     {
-        for (int i = 0; i < Entities.Count; i++)
+        foreach (var entity in Entities)
         {
-            var entity = Entities[i];
             if (entity is Entities.LightMotor motor)
             {
                 LightLine line = new LightLine(motor.Position, motor.Direction, motor.NextTurnDirection);
@@ -194,20 +193,27 @@ public class Field : ISavable
             }
         }
 
+        bool oneTouch = false;
+        bool twoTouch = false;
+        
         for (int i = 2; i < _entities.Count; i++)
         {
-            if (_entities[i].IsTouching(playerOne)) // collision with light
+            if (!oneTouch && _entities[i].IsTouching(playerOne)) // collision with light
             {
-                nextStatus = SecondPlayerWinStatus.Get();
-                break;
+                oneTouch = true;
             }
-            else if (_entities[i].IsTouching(playerTwo)) // collision with light
+            else if (!twoTouch && _entities[i].IsTouching(playerTwo)) // collision with light
             {
-                nextStatus = FirstPlayerWinStatus.Get();
-                break;
+                twoTouch = true;
             }
         }
-
+        
+        if(oneTouch && twoTouch)
+            nextStatus = DrawStatus.Get();
+        else if(oneTouch)
+            nextStatus = SecondPlayerWinStatus.Get();
+        else if(twoTouch)
+            nextStatus = FirstPlayerWinStatus.Get();
 
         if (GameStatus == nextStatus) 
             return false;
