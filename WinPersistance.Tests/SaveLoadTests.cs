@@ -1,3 +1,4 @@
+using LightMotor;
 using LightMotor.Entities;
 using LightMotor.Root;
 
@@ -6,6 +7,35 @@ namespace WinPersistance.Tests;
 [TestClass]
 public class SaveLoadTests
 {
+
+    [TestMethod]
+    public void EntityPersistanceTest()
+    {
+        LightMotor.Entities.LightMotor motor = new LightMotor.Entities.LightMotor(new Position(10, 13), SouthDirection.Get(), NoTurn.Get());
+
+        string data = motor.Save();
+        
+        Assert.AreEqual("0 10 13 2 0", data);
+        
+        Entity? ent = Entity.Load(data);
+        Assert.IsNotNull(ent);
+        Assert.IsTrue(ent is LightMotor.Entities.LightMotor);
+        Assert.AreEqual(new Position(10, 13), ent?.Position);
+        Assert.AreEqual(SouthDirection.Get(), ent?.Direction);
+
+        LightLine line = new LightLine(new Position(10, 0), WestDirection.Get(), TurnRight.Get());
+
+        data = line.Save();
+        
+        Assert.AreEqual("1 10 0 3 2", data);
+        
+        Entity? light = Entity.Load(data);
+        
+        Assert.IsNotNull(light);
+        Assert.IsTrue(light is LightLine);
+        Assert.AreEqual(new Position(10, 0), light?.Position);
+        Assert.AreEqual(WestDirection.Get(), light?.Direction);
+    }
     
     [TestMethod]
     public void SaveTest()
@@ -65,6 +95,20 @@ public class SaveLoadTests
         Assert.AreEqual(f1.GameStatus, f2.GameStatus);
         Assert.IsNotNull(c2);
         Assert.AreEqual(c1.Length, c2.Length);
+        
+        File.Delete("file.txt");
+
+        Assert.ThrowsException<FileNotFoundException>(() => g.LoadFile("file.txt"));
+
+        using (StreamWriter sw = new StreamWriter("file.txt"))
+        {
+            sw.WriteLine("Wrong data");
+            sw.WriteLine("12 wrong bad 0");
+            
+            sw.Close();
+        }
+
+        Assert.ThrowsException<FormatException>(() => g.LoadFile("file.txt"));
         
         File.Delete("file.txt");
     }

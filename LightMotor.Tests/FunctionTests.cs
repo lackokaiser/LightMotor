@@ -1,3 +1,4 @@
+using LightMotor.Entities;
 using LightMotor.Root;
 using LightMotorClass = LightMotor.Entities.LightMotor;
 
@@ -111,5 +112,32 @@ public class FunctionTests
         newPos.AddY(1);
         
         Assert.IsTrue(newPos != position);
+    }
+
+    [TestMethod]
+    public void EntityTest()
+    {
+        Entity entity = new LightLine(new Position(0, 0), WestDirection.Get(), NoTurn.Get());
+        
+        Assert.AreEqual(new Position(0, 0), entity.Position);
+        Assert.AreEqual(WestDirection.Get(), entity.Direction);
+        Assert.AreEqual(NoTurn.Get(), entity.GetFieldValue<TurnDirection>("TurnDirection"));
+        
+        LightMotorClass entity2 = new LightMotorClass(new Position(0, 10), SouthDirection.Get(), TurnLeft.Get());
+        
+        Assert.AreEqual(new Position(0, 10), entity2.Position);
+        Assert.AreEqual(SouthDirection.Get(), entity2.Direction);
+        Assert.AreEqual(TurnLeft.Get(), entity2.GetFieldValue<TurnDirection>("TurnDirection"));
+        
+        Assert.IsFalse(entity.IsTouching(entity2));
+        
+        
+        Assert.IsTrue(entity.IsTouching(entity));
+        
+        entity2.AcceptInput(RightInput.Get());
+        
+        entity2.Update();
+        
+        Assert.AreEqual(new Position(-1, 10), entity2.Position);
     }
 }
