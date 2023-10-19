@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor.Tests", "LightMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinPersistance.Tests", "WinPersistance.Tests\WinPersistance.Tests.csproj", "{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFLightMotor", "WPFLightMotor\WPFLightMotor.csproj", "{803E3C54-228F-48D3-ABBF-D8126216487A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotorViewModel", "LightMotorViewModel\LightMotorViewModel.csproj", "{DF26EEEE-C6C3-4888-9E8A-0B0334011451}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{803E3C54-228F-48D3-ABBF-D8126216487A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{803E3C54-228F-48D3-ABBF-D8126216487A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{803E3C54-228F-48D3-ABBF-D8126216487A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{803E3C54-228F-48D3-ABBF-D8126216487A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

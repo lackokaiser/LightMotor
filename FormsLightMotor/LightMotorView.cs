@@ -174,7 +174,7 @@ public partial class LightMotorView : Form
         }
         else if(HasGameStarted)
         {
-            if (e is { KeyCode: Keys.S, Control: true })
+            if (e is { KeyCode: Keys.S, Control: true } && !e.Handled)
             {
                 OnSave();
             }
