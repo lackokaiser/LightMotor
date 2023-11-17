@@ -18,12 +18,12 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
         return true;
     }
 
-    private void PropertyChangingInvoke(string propertyName)
+    protected void PropertyChangingInvoke(string propertyName)
     {
         PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
     }
 
-    private void PropertyChangedInvoke(string propertyName)
+    protected void PropertyChangedInvoke(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
