@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows.Input;
-using LightMotorViewModel;
-
-namespace WPFLightMotor;
+﻿namespace LightMotorViewModel;
 
 public class Navigation
 {
