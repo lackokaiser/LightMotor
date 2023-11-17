@@ -8,11 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="View\" />
+      <ProjectReference Include="..\LightMotorViewModel\LightMotorViewModel.csproj" />
+      <ProjectReference Include="..\LightMotor\LightMotor.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LightMotorViewModel\LightMotorViewModel.csproj" />
+      <Page Update="Controls\MenuControl.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
     </ItemGroup>
 
 </Project>
