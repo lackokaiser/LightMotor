@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="WPFLightMotor.Controls.MenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WPFLightMotor"
+             xmlns:controls="clr-namespace:WPFLightMotor.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="200" d:DesignWidth="200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Button Margin="30 0" MinHeight="20" VerticalAlignment="Bottom" Content="Start"/>
+        <Label Grid.Row="1" VerticalAlignment="Top" Content="Game Board Size:" Padding="30, 0"></Label>
+        <controls:NumberText Grid.Row="1" Margin="30, 0" MinHeight="20" VerticalAlignment="Center" ToolTip="NxN Table Size" Text="{Binding BoardSize, Mode=TwoWay}"></controls:NumberText>
+        <Button Grid.Row="2" Margin="30 0" MinHeight="20" VerticalAlignment="Top" Content="Exit"/>
+    </Grid>
+</UserControl>
