@@ -3,20 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:WPFLightMotor"
-             xmlns:controls="clr-namespace:WPFLightMotor.Controls"
              mc:Ignorable="d"
              d:DesignHeight="200" d:DesignWidth="200">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        
-        <Button Margin="30 0" MinHeight="20" VerticalAlignment="Bottom" Content="Start"/>
-        <Label Grid.Row="1" VerticalAlignment="Top" Content="Game Board Size:" Padding="30, 0"></Label>
-        <controls:NumberText Grid.Row="1" Margin="30, 0" MinHeight="20" VerticalAlignment="Center" ToolTip="NxN Table Size" Text="{Binding BoardSize, Mode=TwoWay}"></controls:NumberText>
-        <Button Grid.Row="2" Margin="30 0" MinHeight="20" VerticalAlignment="Top" Content="Exit"/>
-    </Grid>
+    <UserControl.InputBindings>
+        <KeyBinding  Key="H" Command="{Binding HelpCommand}"></KeyBinding>
+    </UserControl.InputBindings>
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Button Command="{Binding StartCommand}" Margin="0 0, 0, 10" MinHeight="20" MinWidth="100" MaxWidth="200" Content="Start"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Game Board Size: "></Label>
+            <Label Content="{Binding Path=BoardSize}" MinWidth="30"></Label>
+        </StackPanel>
+        <Slider Margin="0, 0, 0, 10" MinHeight="20" MinWidth="100" MaxWidth="200" ToolTip="NxN Table Size" 
+                Minimum="6" Maximum="64" Value="{Binding BoardSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Slider>
+        <Button Command="{Binding LoadCommand}" MinHeight="20" MinWidth="100" MaxWidth="200" Margin="0 0, 0, 10" Content="Load"></Button>
+        <Button Command="{Binding ExitCommand}" MinHeight="20" MinWidth="100" MaxWidth="200" Content="Exit"/>
+    </StackPanel>
 </UserControl>

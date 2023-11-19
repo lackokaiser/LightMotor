@@ -3,15 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:WPFLightMotor.Controls"
+             xmlns:play="clr-namespace:LightMotorViewModel.Play;assembly=LightMotorViewModel"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.InputBindings>
-        <KeyBinding Gesture="P" Command="{Binding PauseCommand}"></KeyBinding>
-        <KeyBinding Gesture="CTRL+S" Command="{Binding SaveCommand}"></KeyBinding>
-        <KeyBinding Gesture="ESC" Command="{Binding EscapeCommand}"></KeyBinding>
+        <KeyBinding Key="P" Command="{Binding PauseCommand}"></KeyBinding>
+        <KeyBinding Modifiers="Control" Key="S" Command="{Binding SaveCommand}"></KeyBinding>
+        <KeyBinding Key="Escape" Command="{Binding EscapeCommand}"></KeyBinding>
+        <KeyBinding Key="Left" Command="{Binding LeftPlayerTwo}"></KeyBinding>
+        <KeyBinding Key="Right" Command="{Binding RightPlayerTwo}"></KeyBinding>
+        <KeyBinding Key="Up" Command="{Binding UpPlayerTwo}"></KeyBinding>
+        <KeyBinding Key="Down" Command="{Binding DownPlayerTwo}"></KeyBinding>
+        <KeyBinding Key="A" Command="{Binding LeftPlayerOne}"></KeyBinding>
+        <KeyBinding Key="D" Command="{Binding RightPlayerOne}"></KeyBinding>
+        <KeyBinding Key="W" Command="{Binding UpPlayerOne}"></KeyBinding>
+        <KeyBinding Key="S" Command="{Binding DownPlayerOne}"></KeyBinding>
     </UserControl.InputBindings>
-    <Grid>
-        
+    <Grid Focusable="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="{Binding Status}"/>
+        <ItemsControl Grid.Row="1" DataContext="{Binding GameBoard}" ItemsSource="{Binding Entities}" Margin="10, 0, 10, 10" 
+                      BorderBrush="Black" BorderThickness="2">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Background="Transparent" Margin="0" Columns="{Binding GameBoard.Size}" Rows="{Binding GameBoard.Size}"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style>
+                    <Setter Property="Grid.Row" Value="{Binding Row}"/>
+                    <Setter Property="Grid.Column" Value="{Binding Col}"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type play:EntityViewModel}">
+                    <Image Stretch="Fill" Source="{Binding Image}"></Image>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>
