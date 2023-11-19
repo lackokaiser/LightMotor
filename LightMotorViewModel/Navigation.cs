@@ -1,21 +1,24 @@
-﻿namespace LightMotorViewModel;
+﻿using LightMotorViewModel.ViewModel;
 
-public class Navigation
+namespace LightMotorViewModel;
+
+public sealed class Navigation
 {
-    private static Navigation? instance;
+    private static Navigation? _instance;
     
-    private Navigation(){}
+    private Navigation()
+    { }
 
     public static Navigation Get()
     {
-        instance ??= new Navigation();
+        _instance ??= new Navigation();
 
-        return instance;
+        return _instance;
     }
     
-    private ViewModelBase _currentViewModel;
+    private ViewModelBase? _currentViewModel;
 
-    public ViewModelBase CurrentViewModel
+    public ViewModelBase? CurrentViewModel
     {
         get => _currentViewModel;
         set
@@ -25,9 +28,9 @@ public class Navigation
         }
     }
 
-    public event Action CurrentViewChanged;
+    public event Action? CurrentViewChanged;
 
-    protected virtual void OnCurrentViewChanged()
+    private void OnCurrentViewChanged()
     {
         CurrentViewChanged?.Invoke();
     }
