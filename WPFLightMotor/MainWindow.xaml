@@ -3,12 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFLightMotor"
         xmlns:vms="clr-namespace:LightMotorViewModel.ViewModel;assembly=LightMotorViewModel"
         xmlns:controls="clr-namespace:WPFLightMotor.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="200">
-    <Grid>
+        Title="LightMotor" Height="300" Width="300" Focusable="False" WindowStartupLocation="CenterScreen">
+    <Grid Focusable="False">
         <Grid.Resources>
             <DataTemplate DataType="{x:Type vms:MenuViewModel}">
                 <controls:MenuControl/>
@@ -18,7 +17,6 @@
             </DataTemplate>
             
         </Grid.Resources>
-        
-        <ContentControl Content="{Binding CurrentViewModel}"/>
+        <ContentControl Focusable="False" Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>
