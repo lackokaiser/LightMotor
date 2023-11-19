@@ -11,7 +11,7 @@ namespace WPFLightMotor
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : IDisposable
     {
         private Game _model = new ();
         private MainViewModel _mainVm = null!;
@@ -75,6 +75,11 @@ namespace WPFLightMotor
             }
             else
                 ViewCallback.Get().OpenedFile = String.Empty;
+        }
+
+        public void Dispose()
+        {
+            _model.Dispose();
         }
     }
 }

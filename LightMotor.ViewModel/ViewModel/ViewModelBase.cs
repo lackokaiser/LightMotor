@@ -8,14 +8,13 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
     public event PropertyChangedEventHandler? PropertyChanged;
     public event PropertyChangingEventHandler? PropertyChanging;
 
-    protected bool Set<T>(ref T field, T data, [CallerMemberName] string propertyName = "")
+    protected void Set<T>(ref T field, T data, [CallerMemberName] string propertyName = "")
     {
-        if (EqualityComparer<T>.Default.Equals(field, data)) return false;
-        
+        if (EqualityComparer<T>.Default.Equals(field, data)) return;
+
         PropertyChangingInvoke(propertyName);
         field = data;
         PropertyChangedInvoke(propertyName);
-        return true;
     }
 
     private void PropertyChangingInvoke(string propertyName)
