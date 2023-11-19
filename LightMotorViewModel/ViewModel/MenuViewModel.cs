@@ -12,11 +12,7 @@ public class MenuViewModel : ViewModelBase
     public int BoardSize
     {
         get => _boardSize;
-        set
-        {
-            int newVal = Math.Max(Math.Min(value, 64), 6);
-            Set(ref _boardSize, newVal);
-        }
+        set => Set(ref _boardSize, value);
     }
 
     public ICommand LoadCommand { get; }
