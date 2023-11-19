@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFLightMotor", "WPFLightMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotorViewModel", "LightMotorViewModel\LightMotorViewModel.csproj", "{DF26EEEE-C6C3-4888-9E8A-0B0334011451}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{76826AA7-C2A3-43EE-9218-D4E8B7ADA94A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{24BCE082-63B0-4140-9D3E-53F46E12568D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +52,9 @@ Global
 		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75E065EA-5F11-4D55-A6CD-AE188E3178B1} = {24BCE082-63B0-4140-9D3E-53F46E12568D}
+		{803E3C54-228F-48D3-ABBF-D8126216487A} = {76826AA7-C2A3-43EE-9218-D4E8B7ADA94A}
 	EndGlobalSection
 EndGlobal
