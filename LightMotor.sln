@@ -12,7 +12,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinPersistance.Tests", "Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFLightMotor", "WPFLightMotor\WPFLightMotor.csproj", "{803E3C54-228F-48D3-ABBF-D8126216487A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotorViewModel", "LightMotorViewModel\LightMotorViewModel.csproj", "{DF26EEEE-C6C3-4888-9E8A-0B0334011451}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor.ViewModel", "LightMotor.ViewModel\LightMotor.ViewModel.csproj", "{DF26EEEE-C6C3-4888-9E8A-0B0334011451}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{76826AA7-C2A3-43EE-9218-D4E8B7ADA94A}"
 EndProject
