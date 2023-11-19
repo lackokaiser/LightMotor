@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace LightMotorViewModel;
+namespace LightMotorViewModel.ViewModel;
 
 public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanging
 {
@@ -18,7 +18,7 @@ public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyCha
         return true;
     }
 
-    protected void PropertyChangingInvoke(string propertyName)
+    private void PropertyChangingInvoke(string propertyName)
     {
         PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
     }
