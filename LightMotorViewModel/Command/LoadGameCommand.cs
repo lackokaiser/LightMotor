@@ -16,6 +16,6 @@ public class LoadGameCommand : CommandBase
         ViewCallback.Get().OpenFile();
 
         if (!string.IsNullOrEmpty(ViewCallback.Get().OpenedFile))
-            _model.LoadFile(ViewCallback.Get().OpenedFile);
+            _model.LoadFile(ViewCallback.Get().OpenedFile!);
     }
 }
