@@ -13,6 +13,9 @@ public class LoadGameCommand : CommandBase
 
     public override void Execute(object? parameter)
     {
-        // Todo: Service
+        ViewCallback.Get().OpenFile();
+
+        if (!string.IsNullOrEmpty(ViewCallback.Get().OpenedFile))
+            _model.LoadFile(ViewCallback.Get().OpenedFile);
     }
 }

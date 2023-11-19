@@ -2,6 +2,9 @@
 
 namespace LightMotorViewModel.Command;
 
+/// <summary>
+/// Base class for all commands
+/// </summary>
 public abstract class CommandBase : ICommand
 {
     public virtual bool CanExecute(object? parameter)
@@ -15,6 +18,6 @@ public abstract class CommandBase : ICommand
 
     protected void CanExecuteChangedInvoke()
     {
-        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        CanExecuteChanged?.Invoke(this, System.EventArgs.Empty);
     }
 }
