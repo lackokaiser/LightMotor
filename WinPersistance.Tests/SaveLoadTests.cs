@@ -20,8 +20,8 @@ public class SaveLoadTests
         Entity? ent = Entity.Load(data);
         Assert.IsNotNull(ent);
         Assert.IsTrue(ent is LightMotor.Entities.LightMotor);
-        Assert.AreEqual(new Position(10, 13), ent?.Position);
-        Assert.AreEqual(SouthDirection.Get(), ent?.Direction);
+        Assert.AreEqual(new Position(10, 13), ent.Position);
+        Assert.AreEqual(SouthDirection.Get(), ent.Direction);
 
         LightLine line = new LightLine(new Position(10, 0), WestDirection.Get(), TurnRight.Get());
 
@@ -33,8 +33,8 @@ public class SaveLoadTests
         
         Assert.IsNotNull(light);
         Assert.IsTrue(light is LightLine);
-        Assert.AreEqual(new Position(10, 0), light?.Position);
-        Assert.AreEqual(WestDirection.Get(), light?.Direction);
+        Assert.AreEqual(new Position(10, 0), light.Position);
+        Assert.AreEqual(WestDirection.Get(), light.Direction);
     }
     
     [TestMethod]
