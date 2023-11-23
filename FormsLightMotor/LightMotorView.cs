@@ -1,13 +1,14 @@
 using LightMotor;
 using LightMotor.Entities;
 using LightMotor.Event;
+using LightMotor.Persistence;
 using LightMotor.Root;
 
 namespace FormsLightMotor;
 
 public partial class LightMotorView : Form
 {
-    private readonly Game _model = new ();
+    private readonly Game _model = new (new WindowsPersistenceProvider());
     private bool HasGameStarted => _players[0].Item1 != null;
 
     private (PictureBox?, float rotation)[] _players = new (PictureBox?, float rotation)[2];
