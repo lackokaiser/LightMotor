@@ -1,8 +1,7 @@
-using LightMotor;
 using LightMotor.Entities;
 using LightMotor.Root;
 
-namespace WinPersistance.Tests;
+namespace LightMotor.Persistence.Tests;
 
 [TestClass]
 public class SaveLoadTests
@@ -40,7 +39,7 @@ public class SaveLoadTests
     [TestMethod]
     public void SaveTest()
     {
-        Game g = new ();
+        Game g = new (new WindowsPersistenceProvider());
         Assert.ThrowsException<ApplicationException>(() => g.SaveGame("failing.txt"));
         
         g.Init(10);
@@ -73,7 +72,7 @@ public class SaveLoadTests
     [TestMethod]
     public void LoadTest()
     {
-        Game g = new ();
+        Game g = new (new WindowsPersistenceProvider());
         
         g.Init(10);
 
@@ -82,7 +81,7 @@ public class SaveLoadTests
         
         g.SaveGame("file.txt");
 
-        Game loaded = new();
+        Game loaded = new(new WindowsPersistenceProvider());
         
         loaded.LoadFile("file.txt");
 

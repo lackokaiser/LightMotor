@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace WinPersistance.Tests;
+namespace LightMotor.Persistence.Tests;
 
 public static class TestHelper
 {

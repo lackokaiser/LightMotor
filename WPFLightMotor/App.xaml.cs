@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using LightMotor.Persistence;
 using LightMotor.Root;
 using LightMotorViewModel;
 using LightMotorViewModel.EventArgs;
@@ -13,7 +14,7 @@ namespace WPFLightMotor
     /// </summary>
     public partial class App : IDisposable
     {
-        private Game _model = new ();
+        private Game _model = new (new WindowsPersistenceProvider());
         private MainViewModel _mainVm = null!;
         protected override void OnStartup(StartupEventArgs e)
         {
