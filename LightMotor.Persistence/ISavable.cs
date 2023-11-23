@@ -1,4 +1,4 @@
-namespace WinPersistance;
+namespace LightMotor.Persistence;
 
 /// <summary>
 /// Savable interface for savable objects
