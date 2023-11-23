@@ -1,4 +1,5 @@
 using LightMotor.Entities;
+using LightMotor.Persistence;
 using LightMotor.Root;
 using LightMotorClass = LightMotor.Entities.LightMotor;
 
@@ -11,7 +12,7 @@ public class FunctionTests
     [TestMethod]
     public void GameInitializationTest()
     {
-        Game gm = new Game();
+        Game gm = new Game(new WindowsPersistenceProvider());
         
         Assert.IsFalse(gm.Paused);
         var field = gm.GetFieldValue<Field?>("_field");
@@ -56,7 +57,7 @@ public class FunctionTests
     [TestMethod]
     public void GameFieldInitializationTest()
     {
-        Game g = new Game();
+        Game g = new (new WindowsPersistenceProvider());
         g.Paused = true;
         
         g.Init(12);
