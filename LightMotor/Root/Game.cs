@@ -1,6 +1,6 @@
 using LightMotor.Entities;
 using LightMotor.Event;
-using WinPersistance;
+using LightMotor.Persistence;
 
 namespace LightMotor.Root;
 
@@ -13,7 +13,7 @@ public delegate void OnGameInitialized(object obj, GameInitializedEventArgs e);
 /// This class controls the game's state and updates
 /// <seealso cref="Field"/>
 /// </summary>
-public class Game : PersistanceProvider, IDisposable
+public class Game : IDisposable
 {
     /// <summary>
     /// Event which is called whenever the game updates
@@ -31,11 +31,17 @@ public class Game : PersistanceProvider, IDisposable
     public event OnGameInitialized? OnGameInitialized;
     private Field? _field;
     private CancellationTokenSource? _token;
+    private readonly IPersistenceProvider _persistenceProvider;
     
     /// <summary>
     /// Represents the paused state of the current game
     /// </summary>
     public bool Paused { get; set; }
+
+    public Game(IPersistenceProvider persistenceProvider)
+    {
+        _persistenceProvider = persistenceProvider;
+    }
 
     /// <summary>
     /// Initializes the game with the given size, not ideal to call, when a game is already running
@@ -59,15 +65,16 @@ public class Game : PersistanceProvider, IDisposable
     /// </summary>
     /// <param name="file">The destination file</param>
     /// <exception cref="ApplicationException">If the game is not yet initialized</exception>
-    public void SaveGame(string file)
+    public async void SaveGame(string file)
     {
         if (_field == null)
             throw new ApplicationException("Cannot save an empty game");
-        Write(file, _field);
+        await _persistenceProvider.Write(file, _field);
     }
-    
-    protected override void Load(string data)
+
+    public async void LoadFile(string file)
     {
+        string data = await _persistenceProvider.Read(file);
         Stop();
 
         _token = new CancellationTokenSource();
@@ -81,6 +88,7 @@ public class Game : PersistanceProvider, IDisposable
         }
         OnGameInitializedInvoke(this, new GameInitializedEventArgs(_field.Size, (Entities.LightMotor)entities[0], (Entities.LightMotor)entities[1], 
             lights, _field.GameStatus));
+        
     }
     
     /// <summary>
