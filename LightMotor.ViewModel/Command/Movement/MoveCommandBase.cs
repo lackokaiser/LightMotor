@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using LightMotor;
 using LightMotor.Root;
 
-namespace LightMotorViewModel.Command.Movement;
+namespace LightMotor.ViewModel.Command.Movement;
 
 /// <summary>
 /// Base class for all movement related command

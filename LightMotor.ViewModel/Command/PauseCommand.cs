@@ -1,7 +1,7 @@
 ﻿using LightMotor.Root;
-using LightMotorViewModel.ViewModel;
+using GameViewModel = LightMotor.ViewModel.ViewModel.GameViewModel;
 
-namespace LightMotorViewModel.Command;
+namespace LightMotor.ViewModel.Command;
 
 public class PauseCommand : CommandBase
 {

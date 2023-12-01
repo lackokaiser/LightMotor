@@ -1,7 +1,7 @@
 ﻿using LightMotor.Root;
-using LightMotorViewModel.ViewModel;
+using LightMotor.ViewModel.ViewModel;
 
-namespace LightMotorViewModel.Command;
+namespace LightMotor.ViewModel.Command;
 
 public class StartGameCommand : CommandBase
 {

@@ -5,6 +5,7 @@
         <TargetFramework>net6.0-windows</TargetFramework>
         <Nullable>enable</Nullable>
         <UseWPF>true</UseWPF>
+        <RootNamespace>LightMotor.WPF</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,52 +28,52 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Resource Include="Resources\motor_down.png">
+      <Resource Include="Resources\Images\light_horizont_0.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\motor_left.png">
+      <Resource Include="Resources\Images\light_horizont_1.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\motor_right.png">
+      <Resource Include="Resources\Images\light_left_down_0.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\motor_up.png">
+      <Resource Include="Resources\Images\light_left_down_1.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_horizont_0.png">
+      <Resource Include="Resources\Images\light_left_up_0.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_horizont_1.png">
+      <Resource Include="Resources\Images\light_left_up_1.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_left_down_0.png">
+      <Resource Include="Resources\Images\light_right_down_0.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_left_down_1.png">
+      <Resource Include="Resources\Images\light_right_down_1.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_left_up_0.png">
+      <Resource Include="Resources\Images\light_right_up_0.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_left_up_1.png">
+      <Resource Include="Resources\Images\light_right_up_1.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_right_down_0.png">
+      <Resource Include="Resources\Images\light_vertical_0.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_right_down_1.png">
+      <Resource Include="Resources\Images\light_vertical_1.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_right_up_0.png">
+      <Resource Include="Resources\Images\motor_down.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_right_up_1.png">
+      <Resource Include="Resources\Images\motor_left.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_vertical_0.png">
+      <Resource Include="Resources\Images\motor_right.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
-      <Resource Include="Resources\light_vertical_1.png">
+      <Resource Include="Resources\Images\motor_up.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
     </ItemGroup>

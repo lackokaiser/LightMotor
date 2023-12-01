@@ -1,9 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Drawing.Drawing2D;
-using LightMotor;
 using LightMotor.Entities;
 
-namespace FormsLightMotor;
+namespace LightMotor.Forms;
 
 public partial class LightMotorView
 {

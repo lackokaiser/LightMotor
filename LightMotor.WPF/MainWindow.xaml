@@ -1,19 +1,19 @@
-﻿<Window x:Class="WPFLightMotor.MainWindow"
+﻿<Window x:Class="LightMotor.WPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vms="clr-namespace:LightMotorViewModel.ViewModel;assembly=LightMotor.ViewModel"
-        xmlns:controls="clr-namespace:WPFLightMotor.Controls"
+        xmlns:viewModel="clr-namespace:LightMotor.ViewModel.ViewModel;assembly=LightMotor.ViewModel"
+        xmlns:controls1="clr-namespace:LightMotor.WPF.Controls"
         mc:Ignorable="d"
         Title="LightMotor" Height="300" Width="300" Focusable="False" WindowStartupLocation="CenterScreen">
     <Grid Focusable="False">
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:MenuViewModel}">
-                <controls:MenuControl/>
+            <DataTemplate DataType="{x:Type viewModel:MenuViewModel}">
+                <controls1:MenuControl/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:GameViewModel}">
-                <controls:GameControl/>
+            <DataTemplate DataType="{x:Type viewModel:GameViewModel}">
+                <controls1:GameControl/>
             </DataTemplate>
             
         </Grid.Resources>

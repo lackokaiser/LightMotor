@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace WPFLightMotor
+namespace LightMotor.WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

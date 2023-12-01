@@ -1,4 +1,4 @@
-﻿namespace LightMotorViewModel.Command;
+﻿namespace LightMotor.ViewModel.Command;
 
 public class ExitCommand : CommandBase
 {

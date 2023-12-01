@@ -1,6 +1,6 @@
-using LightMotorViewModel.EventArgs;
+using LightMotor.ViewModel.EventArgs;
 
-namespace LightMotorViewModel.Command;
+namespace LightMotor.ViewModel.Command;
 
 public class ShowHelpCommand : CommandBase
 {

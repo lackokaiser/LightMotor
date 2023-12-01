@@ -1,8 +1,7 @@
-using LightMotor;
 using LightMotor.Event;
 using LightMotor.Root;
 
-namespace LightMotorViewModel.ViewModel;
+namespace LightMotor.ViewModel.ViewModel;
 public class MainViewModel : ViewModelBase
 {
     private Game _model;

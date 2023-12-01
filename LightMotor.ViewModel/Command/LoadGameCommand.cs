@@ -1,6 +1,6 @@
 ﻿using LightMotor.Root;
 
-namespace LightMotorViewModel.Command;
+namespace LightMotor.ViewModel.Command;
 
 public class LoadGameCommand : CommandBase
 {

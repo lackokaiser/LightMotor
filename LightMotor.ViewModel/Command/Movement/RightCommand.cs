@@ -1,7 +1,6 @@
-using LightMotor;
 using LightMotor.Root;
 
-namespace LightMotorViewModel.Command.Movement;
+namespace LightMotor.ViewModel.Command.Movement;
 
 public class RightCommand : MoveCommandBase
 {

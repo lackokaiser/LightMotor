@@ -1,6 +1,6 @@
-﻿using LightMotorViewModel.ViewModel;
+﻿using LightMotor.ViewModel.ViewModel;
 
-namespace LightMotorViewModel;
+namespace LightMotor.ViewModel;
 
 public sealed class Navigation
 {

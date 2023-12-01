@@ -1,10 +1,9 @@
-using LightMotor;
 using LightMotor.Entities;
 using LightMotor.Event;
 using LightMotor.Persistence;
 using LightMotor.Root;
 
-namespace FormsLightMotor;
+namespace LightMotor.Forms;
 
 public partial class LightMotorView : Form
 {

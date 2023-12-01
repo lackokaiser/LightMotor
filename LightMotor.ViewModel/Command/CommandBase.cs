@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace LightMotorViewModel.Command;
+namespace LightMotor.ViewModel.Command;
 
 /// <summary>
 /// Base class for all commands

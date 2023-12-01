@@ -2,12 +2,12 @@
 using System.Windows;
 using LightMotor.Persistence;
 using LightMotor.Root;
-using LightMotorViewModel;
-using LightMotorViewModel.EventArgs;
-using LightMotorViewModel.ViewModel;
+using LightMotor.ViewModel;
+using LightMotor.ViewModel.EventArgs;
+using LightMotor.ViewModel.ViewModel;
 using Microsoft.Win32;
 
-namespace WPFLightMotor
+namespace LightMotor.WPF
 {
     /// <summary>
     /// Interaction logic for App.xaml

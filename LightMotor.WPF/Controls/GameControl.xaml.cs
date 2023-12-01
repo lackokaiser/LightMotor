@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace WPFLightMotor.Controls;
+namespace LightMotor.WPF.Controls;
 
 public partial class GameControl
 {

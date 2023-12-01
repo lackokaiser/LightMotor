@@ -1,13 +1,12 @@
 ﻿using System.Windows.Input;
-using LightMotor;
 using LightMotor.Entities;
 using LightMotor.Event;
 using LightMotor.Root;
-using LightMotorViewModel.Command;
-using LightMotorViewModel.Command.Movement;
-using LightMotorViewModel.Play;
+using LightMotor.ViewModel.Command;
+using LightMotor.ViewModel.Command.Movement;
+using LightMotor.ViewModel.Play;
 
-namespace LightMotorViewModel.ViewModel;
+namespace LightMotor.ViewModel.ViewModel;
 
 public partial class GameViewModel : ViewModelBase
 {
@@ -49,7 +48,7 @@ public partial class GameViewModel : ViewModelBase
         _size = e.Size;
         SaveCommand = new SaveCommand(ref _game, this);
         PauseCommand = new PauseCommand(ref _game, this);
-        EscapeCommand = new EscapeCommand(ref _game);
+        EscapeCommand = new EscapeCommand(ref _game, this);
 
         LeftPlayerOne = new LeftCommand(ref _game, 0);
         RightPlayerOne = new RightCommand(ref _game, 0);
@@ -78,16 +77,16 @@ public partial class GameViewModel : ViewModelBase
         int indTwo = GetLocationFor(e.PlayerTwo.Position);
         
         if (indOne >= 0 && indOne < GameBoard.Entities.Count && e.PlayerOne.Position.X >= 0 && e.PlayerOne.Position.X < _size)
-            GameBoard.Entities[indOne].Update("../Resources/motor_" + GetMotorFacing(e.PlayerOne) + ".png", e.PlayerOne.Position.Y,
+            GameBoard.Entities[indOne].Update("../Resources/Images/motor_" + GetMotorFacing(e.PlayerOne) + ".png", e.PlayerOne.Position.Y,
                 e.PlayerOne.Position.X);
         if(indTwo >= 0 && indTwo < GameBoard.Entities.Count && e.PlayerTwo.Position.X >= 0 && e.PlayerTwo.Position.X < _size)
-            GameBoard.Entities[indTwo].Update("../Resources/motor_" + GetMotorFacing(e.PlayerTwo) + ".png", e.PlayerTwo.Position.Y,
+            GameBoard.Entities[indTwo].Update("../Resources/Images/motor_" + GetMotorFacing(e.PlayerTwo) + ".png", e.PlayerTwo.Position.Y,
                 e.PlayerTwo.Position.X);
 
         for (int i = 0; i < e.Lights.Length; i++)
         {
             GameBoard.Entities[GetLocationFor(e.Lights[i].Position)].Update(
-                "../Resources/light_" + GetLightFacing((LightLine)e.Lights[i]) + "_" + (i % 2 == 0 ? "0" : "1") +
+                "../Resources/Images/light_" + GetLightFacing((LightLine)e.Lights[i]) + "_" + (i % 2 == 0 ? "0" : "1") +
                 ".png",
                 e.Lights[i].Position.Y, e.Lights[i].Position.X);
         }
@@ -105,15 +104,15 @@ public partial class GameViewModel : ViewModelBase
         int indOne = GetLocationFor(e.PlayerOne.Position);
         int indTwo = GetLocationFor(e.PlayerTwo.Position);
         if (indOne >= 0 && indOne < GameBoard.Entities.Count && e.PlayerOne.Position.X >= 0 && e.PlayerOne.Position.X < _size)
-            GameBoard.Entities[indOne].Update("../Resources/motor_" + GetMotorFacing(e.PlayerOne) + ".png", e.PlayerOne.Position.Y,
+            GameBoard.Entities[indOne].Update("../Resources/Images/motor_" + GetMotorFacing(e.PlayerOne) + ".png", e.PlayerOne.Position.Y,
                 e.PlayerOne.Position.X);
         if(indTwo >= 0 && indTwo < GameBoard.Entities.Count && e.PlayerTwo.Position.X >= 0 && e.PlayerTwo.Position.X < _size)
-            GameBoard.Entities[indTwo].Update("../Resources/motor_" + GetMotorFacing(e.PlayerTwo) + ".png", e.PlayerTwo.Position.Y,
+            GameBoard.Entities[indTwo].Update("../Resources/Images/motor_" + GetMotorFacing(e.PlayerTwo) + ".png", e.PlayerTwo.Position.Y,
                 e.PlayerTwo.Position.X);
 
-        GameBoard.Entities[GetLocationFor(e.AddedLightOne!.Position)].Update("../Resources/light_" + GetLightFacing(e.AddedLightOne) + "_0.png", e.AddedLightOne.Position.Y,
+        GameBoard.Entities[GetLocationFor(e.AddedLightOne!.Position)].Update("../Resources/Images/light_" + GetLightFacing(e.AddedLightOne) + "_0.png", e.AddedLightOne.Position.Y,
             e.AddedLightOne.Position.X);
-        GameBoard.Entities[GetLocationFor(e.AddedLightTwo!.Position)].Update("../Resources/light_" + GetLightFacing(e.AddedLightTwo) + "_1.png", e.AddedLightTwo.Position.Y,
+        GameBoard.Entities[GetLocationFor(e.AddedLightTwo!.Position)].Update("../Resources/Images/light_" + GetLightFacing(e.AddedLightTwo) + "_1.png", e.AddedLightTwo.Position.Y,
             e.AddedLightTwo.Position.X);
     }
 
@@ -135,8 +134,11 @@ public partial class GameViewModel : ViewModelBase
             Status = "Player Two Wins! ESC To Reload";
         else if (status is DrawStatus)
             Status = "Draw! ESC To Reload";
+    }
 
-        _game.OnUpdate -= OnUpdate;
+    public void RemoveListeners()
+    {
+        _game.OnUpdate -= OnUpdate; 
         _game.OnStateChanged -= OnStateChanged;
     }
 }

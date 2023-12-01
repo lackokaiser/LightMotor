@@ -1,4 +1,4 @@
-namespace LightMotorViewModel.EventArgs;
+namespace LightMotor.ViewModel.EventArgs;
 
 public class ShowMessageEventArgs
 {

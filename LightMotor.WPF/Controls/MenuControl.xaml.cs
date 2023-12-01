@@ -1,4 +1,4 @@
-﻿namespace WPFLightMotor.Controls;
+﻿namespace LightMotor.WPF.Controls;
 
 public partial class MenuControl
 {

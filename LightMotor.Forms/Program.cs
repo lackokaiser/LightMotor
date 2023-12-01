@@ -1,4 +1,4 @@
-namespace FormsLightMotor;
+namespace LightMotor.Forms;
 
 static class Program
 {

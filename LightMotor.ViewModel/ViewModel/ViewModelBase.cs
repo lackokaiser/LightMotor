@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace LightMotorViewModel.ViewModel;
+namespace LightMotor.ViewModel.ViewModel;
 
 public abstract class ViewModelBase : INotifyPropertyChanged, INotifyPropertyChanging
 {

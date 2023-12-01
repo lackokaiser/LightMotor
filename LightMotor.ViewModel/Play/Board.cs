@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
-using LightMotorViewModel.ViewModel;
+using LightMotor.ViewModel.ViewModel;
 
-namespace LightMotorViewModel.Play;
+namespace LightMotor.ViewModel.Play;
 
 public class Board : ViewModelBase
 {
@@ -13,7 +13,7 @@ public class Board : ViewModelBase
         get => _size;
         set => Set(ref _size, value);
     }
-
+    
     public ObservableCollection<EntityViewModel> Entities
     {
         get => _entities;

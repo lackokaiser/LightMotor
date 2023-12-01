@@ -1,7 +1,6 @@
-using LightMotor;
 using LightMotor.Entities;
 
-namespace LightMotorViewModel.ViewModel;
+namespace LightMotor.ViewModel.ViewModel;
 
 public partial class GameViewModel
 {

@@ -1,4 +1,4 @@
-﻿namespace FormsLightMotor;
+﻿namespace LightMotor.Forms;
 
 partial class LightMotorView
 {

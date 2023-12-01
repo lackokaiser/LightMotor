@@ -1,8 +1,8 @@
 ﻿using System.Windows.Input;
 using LightMotor.Root;
-using LightMotorViewModel.Command;
+using LightMotor.ViewModel.Command;
 
-namespace LightMotorViewModel.ViewModel;
+namespace LightMotor.ViewModel.ViewModel;
 
 public class MenuViewModel : ViewModelBase
 {

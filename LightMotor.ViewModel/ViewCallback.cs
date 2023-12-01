@@ -1,6 +1,6 @@
-using LightMotorViewModel.EventArgs;
+using LightMotor.ViewModel.EventArgs;
 
-namespace LightMotorViewModel;
+namespace LightMotor.ViewModel;
 
 public delegate void MessageBoxOpen(object obj, ShowMessageEventArgs args);
 

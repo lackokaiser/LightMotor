@@ -1,6 +1,6 @@
-using LightMotorViewModel.ViewModel;
+using LightMotor.ViewModel.ViewModel;
 
-namespace LightMotorViewModel.Play;
+namespace LightMotor.ViewModel.Play;
 
 public class EntityViewModel : ViewModelBase
 {
