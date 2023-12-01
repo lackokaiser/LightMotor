@@ -1,22 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor", "LightMotor\LightMotor.csproj", "{AE91D1CD-697A-4DAE-AA2E-2ED07BE791AD}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightMotor", "LightMotor\LightMotor.csproj", "{AE91D1CD-697A-4DAE-AA2E-2ED07BE791AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsLightMotor", "FormsLightMotor\FormsLightMotor.csproj", "{75E065EA-5F11-4D55-A6CD-AE188E3178B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightMotor.Forms", "LightMotor.Forms\LightMotor.Forms.csproj", "{75E065EA-5F11-4D55-A6CD-AE188E3178B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor.Persistence", "LightMotor.Persistence\LightMotor.Persistence.csproj", "{54B6E7DF-07DE-48AF-82C7-A330EED10FD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightMotor.Persistence", "LightMotor.Persistence\LightMotor.Persistence.csproj", "{54B6E7DF-07DE-48AF-82C7-A330EED10FD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor.Tests", "LightMotor.Tests\LightMotor.Tests.csproj", "{66491887-A926-43A7-B0B6-81EA24C75384}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightMotor.Tests", "LightMotor.Tests\LightMotor.Tests.csproj", "{66491887-A926-43A7-B0B6-81EA24C75384}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor.Persistence.Tests", "LightMotor.Persistence.Tests\LightMotor.Persistence.Tests.csproj", "{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightMotor.Persistence.Tests", "LightMotor.Persistence.Tests\LightMotor.Persistence.Tests.csproj", "{5E797AD1-C6AB-4E89-B8CF-B733E11ADA21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFLightMotor", "WPFLightMotor\WPFLightMotor.csproj", "{803E3C54-228F-48D3-ABBF-D8126216487A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightMotor.WPF", "LightMotor.WPF\LightMotor.WPF.csproj", "{803E3C54-228F-48D3-ABBF-D8126216487A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor.ViewModel", "LightMotor.ViewModel\LightMotor.ViewModel.csproj", "{DF26EEEE-C6C3-4888-9E8A-0B0334011451}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LightMotor.ViewModel", "LightMotor.ViewModel\LightMotor.ViewModel.csproj", "{DF26EEEE-C6C3-4888-9E8A-0B0334011451}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{76826AA7-C2A3-43EE-9218-D4E8B7ADA94A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightMotor.MAUI", "LightMotor.MAUI\LightMotor.MAUI.csproj", "{C55C8EAB-D9EC-4A7D-A526-7334BE3C259E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms", "Forms", "{24BCE082-63B0-4140-9D3E-53F46E12568D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{72C6CE84-B998-45A6-9C52-4776EEB8A377}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,9 +55,19 @@ Global
 		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF26EEEE-C6C3-4888-9E8A-0B0334011451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55C8EAB-D9EC-4A7D-A526-7334BE3C259E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C55C8EAB-D9EC-4A7D-A526-7334BE3C259E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C55C8EAB-D9EC-4A7D-A526-7334BE3C259E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C55C8EAB-D9EC-4A7D-A526-7334BE3C259E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C55C8EAB-D9EC-4A7D-A526-7334BE3C259E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C55C8EAB-D9EC-4A7D-A526-7334BE3C259E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{75E065EA-5F11-4D55-A6CD-AE188E3178B1} = {24BCE082-63B0-4140-9D3E-53F46E12568D}
-		{803E3C54-228F-48D3-ABBF-D8126216487A} = {76826AA7-C2A3-43EE-9218-D4E8B7ADA94A}
+		{803E3C54-228F-48D3-ABBF-D8126216487A} = {72C6CE84-B998-45A6-9C52-4776EEB8A377}
+		{C55C8EAB-D9EC-4A7D-A526-7334BE3C259E} = {72C6CE84-B998-45A6-9C52-4776EEB8A377}
+		{75E065EA-5F11-4D55-A6CD-AE188E3178B1} = {72C6CE84-B998-45A6-9C52-4776EEB8A377}
 	EndGlobalSection
 EndGlobal
