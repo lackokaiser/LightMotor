@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LightMotor.MAUI.View.MenuPage">
+    <ContentPage.Content>
+        <VerticalStackLayout  HorizontalOptions="Center" VerticalOptions="Center">
+            <Button Text="Start" Command="{Binding StartCommand}"/>
+            <HorizontalStackLayout Margin="0, 10, 0, 0">
+                <Label Text="Size of the field: "/>
+                <Label Text="{Binding BoardSize}"/>
+            </HorizontalStackLayout>
+            <Slider Minimum="6" Maximum="64" Value="{Binding BoardSize, Mode=TwoWay}" Margin="0, 10, 0, 0"/>
+            <Button Text="Load" Command="{Binding LoadCommand}" Margin="0, 10, 0, 0"/>
+            <Button Text="Exit" Command="{Binding ExitCommand}" Margin="0, 10, 0, 0"/>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

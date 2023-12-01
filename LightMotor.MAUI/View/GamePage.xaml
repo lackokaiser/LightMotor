@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="using:LightMotor.MAUI.Controls"
+             x:Class="LightMotor.MAUI.View.GamePage">
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Disappearing" Command="{Binding EscapeCommand}" />
+    </ContentPage.Behaviors>
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="Game">
+            <MenuFlyoutItem Text="Save" Accelerator="ctrl+s" Command="{Binding SaveCommand}"/>
+            <MenuFlyoutItem Text="Pause" Accelerator="p" Command="{Binding PauseCommand}"/>
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
+    <ContentPage.Content>
+        
+        <Grid Margin="4" RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>    
+        
+            <VerticalStackLayout VerticalOptions="Start" IsVisible="{OnPlatform True, WinUI=False}">
+                <Label Text="Ennek nem kéne itt lennie"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Grid.Row="1">
+                <Label HorizontalTextAlignment="Center" Text="{Binding Status}"/>
+                <Border>
+                    <controls:UniformGrid HorizontalOptions="Fill" VerticalOptions="Fill" 
+                                          BindingContext="{Binding GameBoard}" BindableLayout.ItemsSource="{Binding Entities}" 
+                                          Rows="{Binding Size}" Columns="{Binding Size}"
+                                          RowSpacing="4" ColumnSpacing="4">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <!--<Image Grid.Row="{Binding Row}" Grid.Column="{Binding Col}" Source="{Binding Image}"/>-->
+                                <!--<Label Margin="20" controls:UniformGrid.Row="{Binding Row}" controls:UniformGrid.Column="{Binding Col}" Text="{Binding Col}"/>-->
+                                <Image controls:UniformGrid.Row="{Binding Row}" controls:UniformGrid.Column="{Binding Col}" 
+                                       Source="{Binding Image}"
+                                       Aspect="AspectFill"/>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </controls:UniformGrid>    
+                </Border>    
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Row="1" VerticalOptions="End" IsVisible="{OnPlatform True, WinUI=False}">
+                <Label Text="Ennek sem"/>
+            </VerticalStackLayout>    
+        </Grid>
+        
+    </ContentPage.Content>
+</ContentPage>
