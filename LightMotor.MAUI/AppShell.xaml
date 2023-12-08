@@ -7,7 +7,7 @@
     FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Home"
+        Title="LightMotor"
         ContentTemplate="{DataTemplate view:MenuPage}"
         Route="Menu" />
 
