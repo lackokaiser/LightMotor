@@ -6,4 +6,9 @@ public partial class GamePage
     {
         InitializeComponent();
     }
+
+    private async void ExitButton_Click(object? sender, EventArgs e)
+    {
+        await Navigation.PopAsync();
+    }
 }
