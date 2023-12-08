@@ -11,11 +11,11 @@ public class LoadGameCommand : CommandBase
         _model = model;
     }
 
-    public override void Execute(object? parameter)
+    public override async void Execute(object? parameter)
     {
         ViewCallback.Get().OpenFile();
 
         if (!string.IsNullOrEmpty(ViewCallback.Get().OpenedFile))
-            _model.LoadFile(ViewCallback.Get().OpenedFile!);
+            await _model.LoadFile(ViewCallback.Get().OpenedFile!);
     }
 }
