@@ -43,7 +43,7 @@ public partial class LightMotorView : Form
         statusLabel.Visible = false;
     }
 
-    private void OnSave()
+    private async Task OnSave()
     {
         OpenFileDialog file = new OpenFileDialog();
 
@@ -60,7 +60,7 @@ public partial class LightMotorView : Form
 
         if (res == DialogResult.OK)
         {
-            _model.SaveGame(file.FileName);
+            await _model.SaveGame(file.FileName);
         }
         
         if(!paused)
@@ -68,7 +68,7 @@ public partial class LightMotorView : Form
         SetStatus(prevStatus);
     }
 
-    private void OnLoad()
+    private async Task OnLoad()
     {
         OpenFileDialog file = new OpenFileDialog();
 
@@ -80,7 +80,7 @@ public partial class LightMotorView : Form
 
         if (res == DialogResult.OK)
         {
-            _model.LoadFile(file.FileName);
+            await _model.LoadFile(file.FileName);
         }
     }
 
@@ -162,7 +162,7 @@ public partial class LightMotorView : Form
             await _model.Run();
     }
 
-    private void OnKeyDown(object? sender, KeyEventArgs e)
+    private async void OnKeyDown(object? sender, KeyEventArgs e)
     {   
         if (e.KeyCode is Keys.H or Keys.Help)
         {
@@ -174,9 +174,9 @@ public partial class LightMotorView : Form
         }
         else if(HasGameStarted)
         {
-            if (e is { KeyCode: Keys.S, Control: true } && !e.Handled)
+            if (e is { KeyCode: Keys.S, Control: true, Handled: false })
             {
-                OnSave();
+                await OnSave();
             }
             else if (e.KeyCode is Keys.P) // toggle pause
             {
@@ -217,9 +217,9 @@ public partial class LightMotorView : Form
         Focus();
     }
 
-    private void LoadButtonClick(object? sender, EventArgs e)
+    private async void LoadButtonClick(object? sender, EventArgs e)
     {
-        OnLoad();
+        await OnLoad();
     }
 
     private void ResetView()
