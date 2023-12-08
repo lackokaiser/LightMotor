@@ -65,14 +65,14 @@ public class Game : IDisposable
     /// </summary>
     /// <param name="file">The destination file</param>
     /// <exception cref="ApplicationException">If the game is not yet initialized</exception>
-    public async void SaveGame(string file)
+    public async Task SaveGame(string file)
     {
         if (_field == null)
             throw new ApplicationException("Cannot save an empty game");
         await _persistenceProvider.Write(file, _field);
     }
 
-    public async void LoadFile(string file)
+    public async Task LoadFile(string file)
     {
         string data = await _persistenceProvider.Read(file);
         Stop();
